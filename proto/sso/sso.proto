@@ -39,3 +39,24 @@ message IsAdminRequest {
 message IsAdminResponse {
     bool is_admin = 1; // Indicates whether the user is admin
 }
+// Создание администратора
+message CreateAdminRequest {
+  string email = 1;
+  string password = 2;
+  int64 requesting_user_id = 3; // ID пользователя, который запрашивает действие
+}
+
+message CreateAdminResponse {
+  int64 user_id = 1;
+}
+
+// Блокировка пользователя (опционально)
+message BanUserRequest {
+  int64 user_id = 1;
+  int64 requesting_user_id = 2;
+  string reason = 3;
+}
+
+message BanUserResponse {
+  bool success = 1;
+}
