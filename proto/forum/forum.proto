@@ -1,0 +1,159 @@
+syntax = "proto3";
+
+package forum;
+
+option go_package = "tuzov.forum.v1;forumv1";
+
+service Forum {
+  //  Категории 
+  rpc ListCategories(Empty) returns (ListCategoriesResponse);
+  rpc GetCategoryByID(GetCategoryByIDRequest) returns (GetCategoryByIDResponse);
+
+  //  Темы 
+  rpc CreateTopic(CreateTopicRequest) returns (CreateTopicResponse);
+  rpc GetTopicByID(GetTopicByIDRequest) returns (GetTopicByIDResponse);
+  rpc ListTopicsByCategory(ListTopicsByCategoryRequest) returns (ListTopicsByCategoryResponse);
+
+  //  Посты 
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
+  rpc ListPostsByTopic(ListPostsByTopicRequest) returns (ListPostsByTopicResponse);
+
+  //  Комментарии 
+  rpc AddComment(AddCommentRequest) returns (AddCommentResponse);
+  rpc ListCommentsByPost(ListCommentsByPostRequest) returns (ListCommentsByPostResponse);
+
+  //  Теги 
+  rpc ListTags(Empty) returns (ListTagsResponse);
+}
+
+message Empty {}
+
+
+// Категории 
+message Category {
+  int64 id = 1;
+  string title = 2;
+  string slug = 3;
+}
+
+message ListCategoriesResponse {
+  repeated Category categories = 1;
+}
+
+message GetCategoryByIDRequest {
+  int64 category_id = 1;
+}
+
+message GetCategoryByIDResponse {
+  Category category = 1;
+}
+
+
+// Темы 
+message Topic {
+  int64 id = 1;
+  string title = 2;
+  int64 author_id = 3;
+  int64 category_id = 4;
+  int64 created_at = 5;
+}
+
+message CreateTopicRequest {
+  string title = 1;
+  int64 author_id = 2;
+  int64 category_id = 3;
+}
+
+message CreateTopicResponse {
+  int64 topic_id = 1;
+}
+
+message GetTopicByIDRequest {
+  int64 topic_id = 1;
+}
+
+message GetTopicByIDResponse {
+  Topic topic = 1;
+}
+
+message ListTopicsByCategoryRequest {
+  int64 category_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListTopicsByCategoryResponse {
+  repeated Topic topics = 1;
+}
+
+
+// Посты 
+message Post {
+  int64 id = 1;
+  int64 topic_id = 2;
+  int64 author_id = 3;
+  string content = 4;
+  int64 created_at = 5;
+}
+
+message CreatePostRequest {
+  int64 topic_id = 1;
+  int64 author_id = 2;
+  string content = 3;
+}
+
+message CreatePostResponse {
+  int64 post_id = 1;
+}
+
+message ListPostsByTopicRequest {
+  int64 topic_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListPostsByTopicResponse {
+  repeated Post posts = 1;
+}
+
+
+// Комментарии 
+message Comment {
+  int64 id = 1;
+  int64 post_id = 2;
+  int64 author_id = 3;
+  string content = 4;
+  int64 created_at = 5;
+}
+
+message AddCommentRequest {
+  int64 post_id = 1;
+  int64 author_id = 2;
+  string content = 3;
+}
+
+message AddCommentResponse {
+  int64 comment_id = 1;
+}
+
+message ListCommentsByPostRequest {
+  int64 post_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListCommentsByPostResponse {
+  repeated Comment comments = 1;
+}
+
+
+// Теги 
+message Tag {
+  int64 id = 1;
+  string title = 2;
+  string slug = 3;
+}
+
+message ListTagsResponse {
+  repeated Tag tags = 1;
+}
