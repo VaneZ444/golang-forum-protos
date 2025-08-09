@@ -17,18 +17,16 @@ service Forum {
   //  Посты 
   rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
   rpc ListPostsByTopic(ListPostsByTopicRequest) returns (ListPostsByTopicResponse);
-  // Посты — дополнительно
   rpc GetPostByID(GetPostRequest) returns (GetPostResponse);
   rpc ListPosts(ListPostsRequest) returns (ListPostsResponse);
+  
   //  Комментарии 
   rpc AddComment(AddCommentRequest) returns (AddCommentResponse);
   rpc ListCommentsByPost(ListCommentsByPostRequest) returns (ListCommentsByPostResponse);
-  // Комментарии — дополнительно
   rpc GetCommentByID(GetCommentRequest) returns (GetCommentResponse);
 
   //  Теги 
   rpc ListTags(Empty) returns (ListTagsResponse);
-    // Теги — дополнительно
   rpc CreateTag(CreateTagRequest) returns (CreateTagResponse);
   rpc GetTagByID(GetTagByIDRequest) returns (GetTagByIDResponse);
 }

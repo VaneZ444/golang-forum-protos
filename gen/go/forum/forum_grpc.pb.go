@@ -50,17 +50,14 @@ type ForumClient interface {
 	// Посты
 	CreatePost(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*CreatePostResponse, error)
 	ListPostsByTopic(ctx context.Context, in *ListPostsByTopicRequest, opts ...grpc.CallOption) (*ListPostsByTopicResponse, error)
-	// Посты — дополнительно
 	GetPostByID(ctx context.Context, in *GetPostRequest, opts ...grpc.CallOption) (*GetPostResponse, error)
 	ListPosts(ctx context.Context, in *ListPostsRequest, opts ...grpc.CallOption) (*ListPostsResponse, error)
 	// Комментарии
 	AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
 	ListCommentsByPost(ctx context.Context, in *ListCommentsByPostRequest, opts ...grpc.CallOption) (*ListCommentsByPostResponse, error)
-	// Комментарии — дополнительно
 	GetCommentByID(ctx context.Context, in *GetCommentRequest, opts ...grpc.CallOption) (*GetCommentResponse, error)
 	// Теги
 	ListTags(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ListTagsResponse, error)
-	// Теги — дополнительно
 	CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*CreateTagResponse, error)
 	GetTagByID(ctx context.Context, in *GetTagByIDRequest, opts ...grpc.CallOption) (*GetTagByIDResponse, error)
 }
@@ -237,17 +234,14 @@ type ForumServer interface {
 	// Посты
 	CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error)
 	ListPostsByTopic(context.Context, *ListPostsByTopicRequest) (*ListPostsByTopicResponse, error)
-	// Посты — дополнительно
 	GetPostByID(context.Context, *GetPostRequest) (*GetPostResponse, error)
 	ListPosts(context.Context, *ListPostsRequest) (*ListPostsResponse, error)
 	// Комментарии
 	AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error)
 	ListCommentsByPost(context.Context, *ListCommentsByPostRequest) (*ListCommentsByPostResponse, error)
-	// Комментарии — дополнительно
 	GetCommentByID(context.Context, *GetCommentRequest) (*GetCommentResponse, error)
 	// Теги
 	ListTags(context.Context, *Empty) (*ListTagsResponse, error)
-	// Теги — дополнительно
 	CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error)
 	GetTagByID(context.Context, *GetTagByIDRequest) (*GetTagByIDResponse, error)
 	mustEmbedUnimplementedForumServer()
