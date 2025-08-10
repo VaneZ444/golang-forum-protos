@@ -32,6 +32,7 @@ const (
 	Forum_ListCommentsByPost_FullMethodName   = "/forum.Forum/ListCommentsByPost"
 	Forum_GetCommentByID_FullMethodName       = "/forum.Forum/GetCommentByID"
 	Forum_ListTags_FullMethodName             = "/forum.Forum/ListTags"
+	Forum_ListTagsByPostID_FullMethodName     = "/forum.Forum/ListTagsByPostID"
 	Forum_CreateTag_FullMethodName            = "/forum.Forum/CreateTag"
 	Forum_GetTagByID_FullMethodName           = "/forum.Forum/GetTagByID"
 )
@@ -58,6 +59,7 @@ type ForumClient interface {
 	GetCommentByID(ctx context.Context, in *GetCommentRequest, opts ...grpc.CallOption) (*GetCommentResponse, error)
 	// Теги
 	ListTags(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ListTagsResponse, error)
+	ListTagsByPostID(ctx context.Context, in *ListTagsByPostIDRequest, opts ...grpc.CallOption) (*ListTagsByPostIDResponse, error)
 	CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*CreateTagResponse, error)
 	GetTagByID(ctx context.Context, in *GetTagByIDRequest, opts ...grpc.CallOption) (*GetTagByIDResponse, error)
 }
@@ -200,6 +202,16 @@ func (c *forumClient) ListTags(ctx context.Context, in *Empty, opts ...grpc.Call
 	return out, nil
 }
 
+func (c *forumClient) ListTagsByPostID(ctx context.Context, in *ListTagsByPostIDRequest, opts ...grpc.CallOption) (*ListTagsByPostIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListTagsByPostIDResponse)
+	err := c.cc.Invoke(ctx, Forum_ListTagsByPostID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *forumClient) CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*CreateTagResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateTagResponse)
@@ -242,6 +254,7 @@ type ForumServer interface {
 	GetCommentByID(context.Context, *GetCommentRequest) (*GetCommentResponse, error)
 	// Теги
 	ListTags(context.Context, *Empty) (*ListTagsResponse, error)
+	ListTagsByPostID(context.Context, *ListTagsByPostIDRequest) (*ListTagsByPostIDResponse, error)
 	CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error)
 	GetTagByID(context.Context, *GetTagByIDRequest) (*GetTagByIDResponse, error)
 	mustEmbedUnimplementedForumServer()
@@ -292,6 +305,9 @@ func (UnimplementedForumServer) GetCommentByID(context.Context, *GetCommentReque
 }
 func (UnimplementedForumServer) ListTags(context.Context, *Empty) (*ListTagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTags not implemented")
+}
+func (UnimplementedForumServer) ListTagsByPostID(context.Context, *ListTagsByPostIDRequest) (*ListTagsByPostIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTagsByPostID not implemented")
 }
 func (UnimplementedForumServer) CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTag not implemented")
@@ -554,6 +570,24 @@ func _Forum_ListTags_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Forum_ListTagsByPostID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTagsByPostIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).ListTagsByPostID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_ListTagsByPostID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).ListTagsByPostID(ctx, req.(*ListTagsByPostIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Forum_CreateTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateTagRequest)
 	if err := dec(in); err != nil {
@@ -648,6 +682,10 @@ var Forum_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTags",
 			Handler:    _Forum_ListTags_Handler,
+		},
+		{
+			MethodName: "ListTagsByPostID",
+			Handler:    _Forum_ListTagsByPostID_Handler,
 		},
 		{
 			MethodName: "CreateTag",

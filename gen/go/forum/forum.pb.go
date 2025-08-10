@@ -1806,6 +1806,94 @@ func (x *ListTagsRequest) GetOffset() int32 {
 	return 0
 }
 
+type ListTagsByPostIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PostId        int64                  `protobuf:"varint,1,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListTagsByPostIDRequest) Reset() {
+	*x = ListTagsByPostIDRequest{}
+	mi := &file_forum_forum_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListTagsByPostIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListTagsByPostIDRequest) ProtoMessage() {}
+
+func (x *ListTagsByPostIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_forum_forum_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListTagsByPostIDRequest.ProtoReflect.Descriptor instead.
+func (*ListTagsByPostIDRequest) Descriptor() ([]byte, []int) {
+	return file_forum_forum_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *ListTagsByPostIDRequest) GetPostId() int64 {
+	if x != nil {
+		return x.PostId
+	}
+	return 0
+}
+
+type ListTagsByPostIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Tags          []*Tag                 `protobuf:"bytes,1,rep,name=tags,proto3" json:"tags,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListTagsByPostIDResponse) Reset() {
+	*x = ListTagsByPostIDResponse{}
+	mi := &file_forum_forum_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListTagsByPostIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListTagsByPostIDResponse) ProtoMessage() {}
+
+func (x *ListTagsByPostIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_forum_forum_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListTagsByPostIDResponse.ProtoReflect.Descriptor instead.
+func (*ListTagsByPostIDResponse) Descriptor() ([]byte, []int) {
+	return file_forum_forum_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *ListTagsByPostIDResponse) GetTags() []*Tag {
+	if x != nil {
+		return x.Tags
+	}
+	return nil
+}
+
 var File_forum_forum_proto protoreflect.FileDescriptor
 
 const file_forum_forum_proto_rawDesc = "" +
@@ -1923,7 +2011,12 @@ const file_forum_forum_proto_rawDesc = "" +
 	".forum.TagR\x03tag\"?\n" +
 	"\x0fListTagsRequest\x12\x14\n" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x02 \x01(\x05R\x06offset2\xb9\b\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset\"2\n" +
+	"\x17ListTagsByPostIDRequest\x12\x17\n" +
+	"\apost_id\x18\x01 \x01(\x03R\x06postId\":\n" +
+	"\x18ListTagsByPostIDResponse\x12\x1e\n" +
+	"\x04tags\x18\x01 \x03(\v2\n" +
+	".forum.TagR\x04tags2\x8e\t\n" +
 	"\x05Forum\x12=\n" +
 	"\x0eListCategories\x12\f.forum.Empty\x1a\x1d.forum.ListCategoriesResponse\x12P\n" +
 	"\x0fGetCategoryByID\x12\x1d.forum.GetCategoryByIDRequest\x1a\x1e.forum.GetCategoryByIDResponse\x12D\n" +
@@ -1939,7 +2032,8 @@ const file_forum_forum_proto_rawDesc = "" +
 	"AddComment\x12\x18.forum.AddCommentRequest\x1a\x19.forum.AddCommentResponse\x12Y\n" +
 	"\x12ListCommentsByPost\x12 .forum.ListCommentsByPostRequest\x1a!.forum.ListCommentsByPostResponse\x12E\n" +
 	"\x0eGetCommentByID\x12\x18.forum.GetCommentRequest\x1a\x19.forum.GetCommentResponse\x121\n" +
-	"\bListTags\x12\f.forum.Empty\x1a\x17.forum.ListTagsResponse\x12>\n" +
+	"\bListTags\x12\f.forum.Empty\x1a\x17.forum.ListTagsResponse\x12S\n" +
+	"\x10ListTagsByPostID\x12\x1e.forum.ListTagsByPostIDRequest\x1a\x1f.forum.ListTagsByPostIDResponse\x12>\n" +
 	"\tCreateTag\x12\x17.forum.CreateTagRequest\x1a\x18.forum.CreateTagResponse\x12A\n" +
 	"\n" +
 	"GetTagByID\x12\x18.forum.GetTagByIDRequest\x1a\x19.forum.GetTagByIDResponseB\x18Z\x16tuzov.forum.v1;forumv1b\x06proto3"
@@ -1956,7 +2050,7 @@ func file_forum_forum_proto_rawDescGZIP() []byte {
 	return file_forum_forum_proto_rawDescData
 }
 
-var file_forum_forum_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_forum_forum_proto_msgTypes = make([]protoimpl.MessageInfo, 37)
 var file_forum_forum_proto_goTypes = []any{
 	(*Empty)(nil),                        // 0: forum.Empty
 	(*Category)(nil),                     // 1: forum.Category
@@ -1993,6 +2087,8 @@ var file_forum_forum_proto_goTypes = []any{
 	(*GetTagByIDRequest)(nil),            // 32: forum.GetTagByIDRequest
 	(*GetTagByIDResponse)(nil),           // 33: forum.GetTagByIDResponse
 	(*ListTagsRequest)(nil),              // 34: forum.ListTagsRequest
+	(*ListTagsByPostIDRequest)(nil),      // 35: forum.ListTagsByPostIDRequest
+	(*ListTagsByPostIDResponse)(nil),     // 36: forum.ListTagsByPostIDResponse
 }
 var file_forum_forum_proto_depIdxs = []int32{
 	1,  // 0: forum.ListCategoriesResponse.categories:type_name -> forum.Category
@@ -2006,41 +2102,44 @@ var file_forum_forum_proto_depIdxs = []int32{
 	12, // 8: forum.GetPostResponse.post:type_name -> forum.Post
 	12, // 9: forum.ListPostsResponse.posts:type_name -> forum.Post
 	22, // 10: forum.GetTagByIDResponse.tag:type_name -> forum.Tag
-	0,  // 11: forum.Forum.ListCategories:input_type -> forum.Empty
-	3,  // 12: forum.Forum.GetCategoryByID:input_type -> forum.GetCategoryByIDRequest
-	6,  // 13: forum.Forum.CreateTopic:input_type -> forum.CreateTopicRequest
-	8,  // 14: forum.Forum.GetTopicByID:input_type -> forum.GetTopicByIDRequest
-	10, // 15: forum.Forum.ListTopicsByCategory:input_type -> forum.ListTopicsByCategoryRequest
-	13, // 16: forum.Forum.CreatePost:input_type -> forum.CreatePostRequest
-	15, // 17: forum.Forum.ListPostsByTopic:input_type -> forum.ListPostsByTopicRequest
-	26, // 18: forum.Forum.GetPostByID:input_type -> forum.GetPostRequest
-	28, // 19: forum.Forum.ListPosts:input_type -> forum.ListPostsRequest
-	18, // 20: forum.Forum.AddComment:input_type -> forum.AddCommentRequest
-	20, // 21: forum.Forum.ListCommentsByPost:input_type -> forum.ListCommentsByPostRequest
-	24, // 22: forum.Forum.GetCommentByID:input_type -> forum.GetCommentRequest
-	0,  // 23: forum.Forum.ListTags:input_type -> forum.Empty
-	30, // 24: forum.Forum.CreateTag:input_type -> forum.CreateTagRequest
-	32, // 25: forum.Forum.GetTagByID:input_type -> forum.GetTagByIDRequest
-	2,  // 26: forum.Forum.ListCategories:output_type -> forum.ListCategoriesResponse
-	4,  // 27: forum.Forum.GetCategoryByID:output_type -> forum.GetCategoryByIDResponse
-	7,  // 28: forum.Forum.CreateTopic:output_type -> forum.CreateTopicResponse
-	9,  // 29: forum.Forum.GetTopicByID:output_type -> forum.GetTopicByIDResponse
-	11, // 30: forum.Forum.ListTopicsByCategory:output_type -> forum.ListTopicsByCategoryResponse
-	14, // 31: forum.Forum.CreatePost:output_type -> forum.CreatePostResponse
-	16, // 32: forum.Forum.ListPostsByTopic:output_type -> forum.ListPostsByTopicResponse
-	27, // 33: forum.Forum.GetPostByID:output_type -> forum.GetPostResponse
-	29, // 34: forum.Forum.ListPosts:output_type -> forum.ListPostsResponse
-	19, // 35: forum.Forum.AddComment:output_type -> forum.AddCommentResponse
-	21, // 36: forum.Forum.ListCommentsByPost:output_type -> forum.ListCommentsByPostResponse
-	25, // 37: forum.Forum.GetCommentByID:output_type -> forum.GetCommentResponse
-	23, // 38: forum.Forum.ListTags:output_type -> forum.ListTagsResponse
-	31, // 39: forum.Forum.CreateTag:output_type -> forum.CreateTagResponse
-	33, // 40: forum.Forum.GetTagByID:output_type -> forum.GetTagByIDResponse
-	26, // [26:41] is the sub-list for method output_type
-	11, // [11:26] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	22, // 11: forum.ListTagsByPostIDResponse.tags:type_name -> forum.Tag
+	0,  // 12: forum.Forum.ListCategories:input_type -> forum.Empty
+	3,  // 13: forum.Forum.GetCategoryByID:input_type -> forum.GetCategoryByIDRequest
+	6,  // 14: forum.Forum.CreateTopic:input_type -> forum.CreateTopicRequest
+	8,  // 15: forum.Forum.GetTopicByID:input_type -> forum.GetTopicByIDRequest
+	10, // 16: forum.Forum.ListTopicsByCategory:input_type -> forum.ListTopicsByCategoryRequest
+	13, // 17: forum.Forum.CreatePost:input_type -> forum.CreatePostRequest
+	15, // 18: forum.Forum.ListPostsByTopic:input_type -> forum.ListPostsByTopicRequest
+	26, // 19: forum.Forum.GetPostByID:input_type -> forum.GetPostRequest
+	28, // 20: forum.Forum.ListPosts:input_type -> forum.ListPostsRequest
+	18, // 21: forum.Forum.AddComment:input_type -> forum.AddCommentRequest
+	20, // 22: forum.Forum.ListCommentsByPost:input_type -> forum.ListCommentsByPostRequest
+	24, // 23: forum.Forum.GetCommentByID:input_type -> forum.GetCommentRequest
+	0,  // 24: forum.Forum.ListTags:input_type -> forum.Empty
+	35, // 25: forum.Forum.ListTagsByPostID:input_type -> forum.ListTagsByPostIDRequest
+	30, // 26: forum.Forum.CreateTag:input_type -> forum.CreateTagRequest
+	32, // 27: forum.Forum.GetTagByID:input_type -> forum.GetTagByIDRequest
+	2,  // 28: forum.Forum.ListCategories:output_type -> forum.ListCategoriesResponse
+	4,  // 29: forum.Forum.GetCategoryByID:output_type -> forum.GetCategoryByIDResponse
+	7,  // 30: forum.Forum.CreateTopic:output_type -> forum.CreateTopicResponse
+	9,  // 31: forum.Forum.GetTopicByID:output_type -> forum.GetTopicByIDResponse
+	11, // 32: forum.Forum.ListTopicsByCategory:output_type -> forum.ListTopicsByCategoryResponse
+	14, // 33: forum.Forum.CreatePost:output_type -> forum.CreatePostResponse
+	16, // 34: forum.Forum.ListPostsByTopic:output_type -> forum.ListPostsByTopicResponse
+	27, // 35: forum.Forum.GetPostByID:output_type -> forum.GetPostResponse
+	29, // 36: forum.Forum.ListPosts:output_type -> forum.ListPostsResponse
+	19, // 37: forum.Forum.AddComment:output_type -> forum.AddCommentResponse
+	21, // 38: forum.Forum.ListCommentsByPost:output_type -> forum.ListCommentsByPostResponse
+	25, // 39: forum.Forum.GetCommentByID:output_type -> forum.GetCommentResponse
+	23, // 40: forum.Forum.ListTags:output_type -> forum.ListTagsResponse
+	36, // 41: forum.Forum.ListTagsByPostID:output_type -> forum.ListTagsByPostIDResponse
+	31, // 42: forum.Forum.CreateTag:output_type -> forum.CreateTagResponse
+	33, // 43: forum.Forum.GetTagByID:output_type -> forum.GetTagByIDResponse
+	28, // [28:44] is the sub-list for method output_type
+	12, // [12:28] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_forum_forum_proto_init() }
@@ -2054,7 +2153,7 @@ func file_forum_forum_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_forum_forum_proto_rawDesc), len(file_forum_forum_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   35,
+			NumMessages:   37,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
