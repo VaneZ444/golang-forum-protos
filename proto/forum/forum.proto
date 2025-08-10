@@ -27,6 +27,7 @@ service Forum {
 
   //  Теги 
   rpc ListTags(Empty) returns (ListTagsResponse);
+  rpc ListTagsByPostID(ListTagsByPostIDRequest) returns (ListTagsByPostIDResponse);
   rpc CreateTag(CreateTagRequest) returns (CreateTagResponse);
   rpc GetTagByID(GetTagByIDRequest) returns (GetTagByIDResponse);
 }
@@ -208,4 +209,11 @@ message GetTagByIDResponse {
 message ListTagsRequest {
   int32 limit = 1;
   int32 offset = 2;
+}
+message ListTagsByPostIDRequest {
+  int64 post_id = 1;
+}
+
+message ListTagsByPostIDResponse {
+  repeated Tag tags = 1;
 }
