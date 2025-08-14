@@ -21,20 +21,32 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Forum_ListCategories_FullMethodName       = "/forum.Forum/ListCategories"
 	Forum_GetCategoryByID_FullMethodName      = "/forum.Forum/GetCategoryByID"
+	Forum_CreateCategory_FullMethodName       = "/forum.Forum/CreateCategory"
+	Forum_UpdateCategory_FullMethodName       = "/forum.Forum/UpdateCategory"
+	Forum_DeleteCategory_FullMethodName       = "/forum.Forum/DeleteCategory"
 	Forum_CreateTopic_FullMethodName          = "/forum.Forum/CreateTopic"
 	Forum_GetTopicByID_FullMethodName         = "/forum.Forum/GetTopicByID"
 	Forum_ListTopicsByCategory_FullMethodName = "/forum.Forum/ListTopicsByCategory"
+	Forum_UpdateTopic_FullMethodName          = "/forum.Forum/UpdateTopic"
+	Forum_DeleteTopic_FullMethodName          = "/forum.Forum/DeleteTopic"
 	Forum_CreatePost_FullMethodName           = "/forum.Forum/CreatePost"
-	Forum_ListPostsByTopic_FullMethodName     = "/forum.Forum/ListPostsByTopic"
 	Forum_GetPostByID_FullMethodName          = "/forum.Forum/GetPostByID"
 	Forum_ListPosts_FullMethodName            = "/forum.Forum/ListPosts"
+	Forum_ListPostsByTopic_FullMethodName     = "/forum.Forum/ListPostsByTopic"
+	Forum_UpdatePost_FullMethodName           = "/forum.Forum/UpdatePost"
+	Forum_DeletePost_FullMethodName           = "/forum.Forum/DeletePost"
+	Forum_ListPostsByTag_FullMethodName       = "/forum.Forum/ListPostsByTag"
 	Forum_AddComment_FullMethodName           = "/forum.Forum/AddComment"
-	Forum_ListCommentsByPost_FullMethodName   = "/forum.Forum/ListCommentsByPost"
 	Forum_GetCommentByID_FullMethodName       = "/forum.Forum/GetCommentByID"
-	Forum_ListTags_FullMethodName             = "/forum.Forum/ListTags"
-	Forum_ListTagsByPostID_FullMethodName     = "/forum.Forum/ListTagsByPostID"
+	Forum_ListCommentsByPost_FullMethodName   = "/forum.Forum/ListCommentsByPost"
+	Forum_UpdateComment_FullMethodName        = "/forum.Forum/UpdateComment"
+	Forum_DeleteComment_FullMethodName        = "/forum.Forum/DeleteComment"
 	Forum_CreateTag_FullMethodName            = "/forum.Forum/CreateTag"
 	Forum_GetTagByID_FullMethodName           = "/forum.Forum/GetTagByID"
+	Forum_ListTags_FullMethodName             = "/forum.Forum/ListTags"
+	Forum_ListTagsByPostID_FullMethodName     = "/forum.Forum/ListTagsByPostID"
+	Forum_AddTagToPost_FullMethodName         = "/forum.Forum/AddTagToPost"
+	Forum_RemoveTagFromPost_FullMethodName    = "/forum.Forum/RemoveTagFromPost"
 )
 
 // ForumClient is the client API for Forum service.
@@ -44,24 +56,36 @@ type ForumClient interface {
 	// Категории
 	ListCategories(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ListCategoriesResponse, error)
 	GetCategoryByID(ctx context.Context, in *GetCategoryByIDRequest, opts ...grpc.CallOption) (*GetCategoryByIDResponse, error)
+	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
+	UpdateCategory(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*UpdateCategoryResponse, error)
+	DeleteCategory(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*DeleteCategoryResponse, error)
 	// Темы
 	CreateTopic(ctx context.Context, in *CreateTopicRequest, opts ...grpc.CallOption) (*CreateTopicResponse, error)
 	GetTopicByID(ctx context.Context, in *GetTopicByIDRequest, opts ...grpc.CallOption) (*GetTopicByIDResponse, error)
 	ListTopicsByCategory(ctx context.Context, in *ListTopicsByCategoryRequest, opts ...grpc.CallOption) (*ListTopicsByCategoryResponse, error)
+	UpdateTopic(ctx context.Context, in *UpdateTopicRequest, opts ...grpc.CallOption) (*UpdateTopicResponse, error)
+	DeleteTopic(ctx context.Context, in *DeleteTopicRequest, opts ...grpc.CallOption) (*DeleteTopicResponse, error)
 	// Посты
 	CreatePost(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*CreatePostResponse, error)
-	ListPostsByTopic(ctx context.Context, in *ListPostsByTopicRequest, opts ...grpc.CallOption) (*ListPostsByTopicResponse, error)
 	GetPostByID(ctx context.Context, in *GetPostRequest, opts ...grpc.CallOption) (*GetPostResponse, error)
 	ListPosts(ctx context.Context, in *ListPostsRequest, opts ...grpc.CallOption) (*ListPostsResponse, error)
+	ListPostsByTopic(ctx context.Context, in *ListPostsByTopicRequest, opts ...grpc.CallOption) (*ListPostsByTopicResponse, error)
+	UpdatePost(ctx context.Context, in *UpdatePostRequest, opts ...grpc.CallOption) (*UpdatePostResponse, error)
+	DeletePost(ctx context.Context, in *DeletePostRequest, opts ...grpc.CallOption) (*DeletePostResponse, error)
+	ListPostsByTag(ctx context.Context, in *ListPostsByTagRequest, opts ...grpc.CallOption) (*ListPostsByTagResponse, error)
 	// Комментарии
 	AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
-	ListCommentsByPost(ctx context.Context, in *ListCommentsByPostRequest, opts ...grpc.CallOption) (*ListCommentsByPostResponse, error)
 	GetCommentByID(ctx context.Context, in *GetCommentRequest, opts ...grpc.CallOption) (*GetCommentResponse, error)
+	ListCommentsByPost(ctx context.Context, in *ListCommentsByPostRequest, opts ...grpc.CallOption) (*ListCommentsByPostResponse, error)
+	UpdateComment(ctx context.Context, in *UpdateCommentRequest, opts ...grpc.CallOption) (*UpdateCommentResponse, error)
+	DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...grpc.CallOption) (*DeleteCommentResponse, error)
 	// Теги
-	ListTags(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ListTagsResponse, error)
-	ListTagsByPostID(ctx context.Context, in *ListTagsByPostIDRequest, opts ...grpc.CallOption) (*ListTagsByPostIDResponse, error)
 	CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*CreateTagResponse, error)
 	GetTagByID(ctx context.Context, in *GetTagByIDRequest, opts ...grpc.CallOption) (*GetTagByIDResponse, error)
+	ListTags(ctx context.Context, in *ListTagsRequest, opts ...grpc.CallOption) (*ListTagsResponse, error)
+	ListTagsByPostID(ctx context.Context, in *ListTagsByPostIDRequest, opts ...grpc.CallOption) (*ListTagsByPostIDResponse, error)
+	AddTagToPost(ctx context.Context, in *AddTagToPostRequest, opts ...grpc.CallOption) (*AddTagToPostResponse, error)
+	RemoveTagFromPost(ctx context.Context, in *RemoveTagFromPostRequest, opts ...grpc.CallOption) (*RemoveTagFromPostResponse, error)
 }
 
 type forumClient struct {
@@ -86,6 +110,36 @@ func (c *forumClient) GetCategoryByID(ctx context.Context, in *GetCategoryByIDRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetCategoryByIDResponse)
 	err := c.cc.Invoke(ctx, Forum_GetCategoryByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateCategoryResponse)
+	err := c.cc.Invoke(ctx, Forum_CreateCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) UpdateCategory(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*UpdateCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateCategoryResponse)
+	err := c.cc.Invoke(ctx, Forum_UpdateCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) DeleteCategory(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*DeleteCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteCategoryResponse)
+	err := c.cc.Invoke(ctx, Forum_DeleteCategory_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,20 +176,30 @@ func (c *forumClient) ListTopicsByCategory(ctx context.Context, in *ListTopicsBy
 	return out, nil
 }
 
-func (c *forumClient) CreatePost(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*CreatePostResponse, error) {
+func (c *forumClient) UpdateTopic(ctx context.Context, in *UpdateTopicRequest, opts ...grpc.CallOption) (*UpdateTopicResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreatePostResponse)
-	err := c.cc.Invoke(ctx, Forum_CreatePost_FullMethodName, in, out, cOpts...)
+	out := new(UpdateTopicResponse)
+	err := c.cc.Invoke(ctx, Forum_UpdateTopic_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *forumClient) ListPostsByTopic(ctx context.Context, in *ListPostsByTopicRequest, opts ...grpc.CallOption) (*ListPostsByTopicResponse, error) {
+func (c *forumClient) DeleteTopic(ctx context.Context, in *DeleteTopicRequest, opts ...grpc.CallOption) (*DeleteTopicResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListPostsByTopicResponse)
-	err := c.cc.Invoke(ctx, Forum_ListPostsByTopic_FullMethodName, in, out, cOpts...)
+	out := new(DeleteTopicResponse)
+	err := c.cc.Invoke(ctx, Forum_DeleteTopic_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) CreatePost(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*CreatePostResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatePostResponse)
+	err := c.cc.Invoke(ctx, Forum_CreatePost_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,20 +226,50 @@ func (c *forumClient) ListPosts(ctx context.Context, in *ListPostsRequest, opts 
 	return out, nil
 }
 
-func (c *forumClient) AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error) {
+func (c *forumClient) ListPostsByTopic(ctx context.Context, in *ListPostsByTopicRequest, opts ...grpc.CallOption) (*ListPostsByTopicResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddCommentResponse)
-	err := c.cc.Invoke(ctx, Forum_AddComment_FullMethodName, in, out, cOpts...)
+	out := new(ListPostsByTopicResponse)
+	err := c.cc.Invoke(ctx, Forum_ListPostsByTopic_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *forumClient) ListCommentsByPost(ctx context.Context, in *ListCommentsByPostRequest, opts ...grpc.CallOption) (*ListCommentsByPostResponse, error) {
+func (c *forumClient) UpdatePost(ctx context.Context, in *UpdatePostRequest, opts ...grpc.CallOption) (*UpdatePostResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListCommentsByPostResponse)
-	err := c.cc.Invoke(ctx, Forum_ListCommentsByPost_FullMethodName, in, out, cOpts...)
+	out := new(UpdatePostResponse)
+	err := c.cc.Invoke(ctx, Forum_UpdatePost_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) DeletePost(ctx context.Context, in *DeletePostRequest, opts ...grpc.CallOption) (*DeletePostResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeletePostResponse)
+	err := c.cc.Invoke(ctx, Forum_DeletePost_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) ListPostsByTag(ctx context.Context, in *ListPostsByTagRequest, opts ...grpc.CallOption) (*ListPostsByTagResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListPostsByTagResponse)
+	err := c.cc.Invoke(ctx, Forum_ListPostsByTag_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddCommentResponse)
+	err := c.cc.Invoke(ctx, Forum_AddComment_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -192,20 +286,30 @@ func (c *forumClient) GetCommentByID(ctx context.Context, in *GetCommentRequest,
 	return out, nil
 }
 
-func (c *forumClient) ListTags(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ListTagsResponse, error) {
+func (c *forumClient) ListCommentsByPost(ctx context.Context, in *ListCommentsByPostRequest, opts ...grpc.CallOption) (*ListCommentsByPostResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListTagsResponse)
-	err := c.cc.Invoke(ctx, Forum_ListTags_FullMethodName, in, out, cOpts...)
+	out := new(ListCommentsByPostResponse)
+	err := c.cc.Invoke(ctx, Forum_ListCommentsByPost_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *forumClient) ListTagsByPostID(ctx context.Context, in *ListTagsByPostIDRequest, opts ...grpc.CallOption) (*ListTagsByPostIDResponse, error) {
+func (c *forumClient) UpdateComment(ctx context.Context, in *UpdateCommentRequest, opts ...grpc.CallOption) (*UpdateCommentResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListTagsByPostIDResponse)
-	err := c.cc.Invoke(ctx, Forum_ListTagsByPostID_FullMethodName, in, out, cOpts...)
+	out := new(UpdateCommentResponse)
+	err := c.cc.Invoke(ctx, Forum_UpdateComment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...grpc.CallOption) (*DeleteCommentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteCommentResponse)
+	err := c.cc.Invoke(ctx, Forum_DeleteComment_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -232,6 +336,46 @@ func (c *forumClient) GetTagByID(ctx context.Context, in *GetTagByIDRequest, opt
 	return out, nil
 }
 
+func (c *forumClient) ListTags(ctx context.Context, in *ListTagsRequest, opts ...grpc.CallOption) (*ListTagsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListTagsResponse)
+	err := c.cc.Invoke(ctx, Forum_ListTags_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) ListTagsByPostID(ctx context.Context, in *ListTagsByPostIDRequest, opts ...grpc.CallOption) (*ListTagsByPostIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListTagsByPostIDResponse)
+	err := c.cc.Invoke(ctx, Forum_ListTagsByPostID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) AddTagToPost(ctx context.Context, in *AddTagToPostRequest, opts ...grpc.CallOption) (*AddTagToPostResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddTagToPostResponse)
+	err := c.cc.Invoke(ctx, Forum_AddTagToPost_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *forumClient) RemoveTagFromPost(ctx context.Context, in *RemoveTagFromPostRequest, opts ...grpc.CallOption) (*RemoveTagFromPostResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveTagFromPostResponse)
+	err := c.cc.Invoke(ctx, Forum_RemoveTagFromPost_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ForumServer is the server API for Forum service.
 // All implementations must embed UnimplementedForumServer
 // for forward compatibility.
@@ -239,24 +383,36 @@ type ForumServer interface {
 	// Категории
 	ListCategories(context.Context, *Empty) (*ListCategoriesResponse, error)
 	GetCategoryByID(context.Context, *GetCategoryByIDRequest) (*GetCategoryByIDResponse, error)
+	CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
+	UpdateCategory(context.Context, *UpdateCategoryRequest) (*UpdateCategoryResponse, error)
+	DeleteCategory(context.Context, *DeleteCategoryRequest) (*DeleteCategoryResponse, error)
 	// Темы
 	CreateTopic(context.Context, *CreateTopicRequest) (*CreateTopicResponse, error)
 	GetTopicByID(context.Context, *GetTopicByIDRequest) (*GetTopicByIDResponse, error)
 	ListTopicsByCategory(context.Context, *ListTopicsByCategoryRequest) (*ListTopicsByCategoryResponse, error)
+	UpdateTopic(context.Context, *UpdateTopicRequest) (*UpdateTopicResponse, error)
+	DeleteTopic(context.Context, *DeleteTopicRequest) (*DeleteTopicResponse, error)
 	// Посты
 	CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error)
-	ListPostsByTopic(context.Context, *ListPostsByTopicRequest) (*ListPostsByTopicResponse, error)
 	GetPostByID(context.Context, *GetPostRequest) (*GetPostResponse, error)
 	ListPosts(context.Context, *ListPostsRequest) (*ListPostsResponse, error)
+	ListPostsByTopic(context.Context, *ListPostsByTopicRequest) (*ListPostsByTopicResponse, error)
+	UpdatePost(context.Context, *UpdatePostRequest) (*UpdatePostResponse, error)
+	DeletePost(context.Context, *DeletePostRequest) (*DeletePostResponse, error)
+	ListPostsByTag(context.Context, *ListPostsByTagRequest) (*ListPostsByTagResponse, error)
 	// Комментарии
 	AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error)
-	ListCommentsByPost(context.Context, *ListCommentsByPostRequest) (*ListCommentsByPostResponse, error)
 	GetCommentByID(context.Context, *GetCommentRequest) (*GetCommentResponse, error)
+	ListCommentsByPost(context.Context, *ListCommentsByPostRequest) (*ListCommentsByPostResponse, error)
+	UpdateComment(context.Context, *UpdateCommentRequest) (*UpdateCommentResponse, error)
+	DeleteComment(context.Context, *DeleteCommentRequest) (*DeleteCommentResponse, error)
 	// Теги
-	ListTags(context.Context, *Empty) (*ListTagsResponse, error)
-	ListTagsByPostID(context.Context, *ListTagsByPostIDRequest) (*ListTagsByPostIDResponse, error)
 	CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error)
 	GetTagByID(context.Context, *GetTagByIDRequest) (*GetTagByIDResponse, error)
+	ListTags(context.Context, *ListTagsRequest) (*ListTagsResponse, error)
+	ListTagsByPostID(context.Context, *ListTagsByPostIDRequest) (*ListTagsByPostIDResponse, error)
+	AddTagToPost(context.Context, *AddTagToPostRequest) (*AddTagToPostResponse, error)
+	RemoveTagFromPost(context.Context, *RemoveTagFromPostRequest) (*RemoveTagFromPostResponse, error)
 	mustEmbedUnimplementedForumServer()
 }
 
@@ -273,6 +429,15 @@ func (UnimplementedForumServer) ListCategories(context.Context, *Empty) (*ListCa
 func (UnimplementedForumServer) GetCategoryByID(context.Context, *GetCategoryByIDRequest) (*GetCategoryByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCategoryByID not implemented")
 }
+func (UnimplementedForumServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
+}
+func (UnimplementedForumServer) UpdateCategory(context.Context, *UpdateCategoryRequest) (*UpdateCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCategory not implemented")
+}
+func (UnimplementedForumServer) DeleteCategory(context.Context, *DeleteCategoryRequest) (*DeleteCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCategory not implemented")
+}
 func (UnimplementedForumServer) CreateTopic(context.Context, *CreateTopicRequest) (*CreateTopicResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTopic not implemented")
 }
@@ -282,11 +447,14 @@ func (UnimplementedForumServer) GetTopicByID(context.Context, *GetTopicByIDReque
 func (UnimplementedForumServer) ListTopicsByCategory(context.Context, *ListTopicsByCategoryRequest) (*ListTopicsByCategoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTopicsByCategory not implemented")
 }
+func (UnimplementedForumServer) UpdateTopic(context.Context, *UpdateTopicRequest) (*UpdateTopicResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTopic not implemented")
+}
+func (UnimplementedForumServer) DeleteTopic(context.Context, *DeleteTopicRequest) (*DeleteTopicResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTopic not implemented")
+}
 func (UnimplementedForumServer) CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePost not implemented")
-}
-func (UnimplementedForumServer) ListPostsByTopic(context.Context, *ListPostsByTopicRequest) (*ListPostsByTopicResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListPostsByTopic not implemented")
 }
 func (UnimplementedForumServer) GetPostByID(context.Context, *GetPostRequest) (*GetPostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPostByID not implemented")
@@ -294,26 +462,50 @@ func (UnimplementedForumServer) GetPostByID(context.Context, *GetPostRequest) (*
 func (UnimplementedForumServer) ListPosts(context.Context, *ListPostsRequest) (*ListPostsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListPosts not implemented")
 }
+func (UnimplementedForumServer) ListPostsByTopic(context.Context, *ListPostsByTopicRequest) (*ListPostsByTopicResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPostsByTopic not implemented")
+}
+func (UnimplementedForumServer) UpdatePost(context.Context, *UpdatePostRequest) (*UpdatePostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePost not implemented")
+}
+func (UnimplementedForumServer) DeletePost(context.Context, *DeletePostRequest) (*DeletePostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePost not implemented")
+}
+func (UnimplementedForumServer) ListPostsByTag(context.Context, *ListPostsByTagRequest) (*ListPostsByTagResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPostsByTag not implemented")
+}
 func (UnimplementedForumServer) AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddComment not implemented")
-}
-func (UnimplementedForumServer) ListCommentsByPost(context.Context, *ListCommentsByPostRequest) (*ListCommentsByPostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListCommentsByPost not implemented")
 }
 func (UnimplementedForumServer) GetCommentByID(context.Context, *GetCommentRequest) (*GetCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCommentByID not implemented")
 }
-func (UnimplementedForumServer) ListTags(context.Context, *Empty) (*ListTagsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListTags not implemented")
+func (UnimplementedForumServer) ListCommentsByPost(context.Context, *ListCommentsByPostRequest) (*ListCommentsByPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCommentsByPost not implemented")
 }
-func (UnimplementedForumServer) ListTagsByPostID(context.Context, *ListTagsByPostIDRequest) (*ListTagsByPostIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListTagsByPostID not implemented")
+func (UnimplementedForumServer) UpdateComment(context.Context, *UpdateCommentRequest) (*UpdateCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateComment not implemented")
+}
+func (UnimplementedForumServer) DeleteComment(context.Context, *DeleteCommentRequest) (*DeleteCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
 }
 func (UnimplementedForumServer) CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTag not implemented")
 }
 func (UnimplementedForumServer) GetTagByID(context.Context, *GetTagByIDRequest) (*GetTagByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTagByID not implemented")
+}
+func (UnimplementedForumServer) ListTags(context.Context, *ListTagsRequest) (*ListTagsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTags not implemented")
+}
+func (UnimplementedForumServer) ListTagsByPostID(context.Context, *ListTagsByPostIDRequest) (*ListTagsByPostIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTagsByPostID not implemented")
+}
+func (UnimplementedForumServer) AddTagToPost(context.Context, *AddTagToPostRequest) (*AddTagToPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTagToPost not implemented")
+}
+func (UnimplementedForumServer) RemoveTagFromPost(context.Context, *RemoveTagFromPostRequest) (*RemoveTagFromPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveTagFromPost not implemented")
 }
 func (UnimplementedForumServer) mustEmbedUnimplementedForumServer() {}
 func (UnimplementedForumServer) testEmbeddedByValue()               {}
@@ -372,6 +564,60 @@ func _Forum_GetCategoryByID_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Forum_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).CreateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_CreateCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_UpdateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).UpdateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_UpdateCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).UpdateCategory(ctx, req.(*UpdateCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_DeleteCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).DeleteCategory(ctx, req.(*DeleteCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Forum_CreateTopic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateTopicRequest)
 	if err := dec(in); err != nil {
@@ -426,6 +672,42 @@ func _Forum_ListTopicsByCategory_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Forum_UpdateTopic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTopicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).UpdateTopic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_UpdateTopic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).UpdateTopic(ctx, req.(*UpdateTopicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_DeleteTopic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTopicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).DeleteTopic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_DeleteTopic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).DeleteTopic(ctx, req.(*DeleteTopicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Forum_CreatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePostRequest)
 	if err := dec(in); err != nil {
@@ -440,24 +722,6 @@ func _Forum_CreatePost_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ForumServer).CreatePost(ctx, req.(*CreatePostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Forum_ListPostsByTopic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListPostsByTopicRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForumServer).ListPostsByTopic(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forum_ListPostsByTopic_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForumServer).ListPostsByTopic(ctx, req.(*ListPostsByTopicRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -498,6 +762,78 @@ func _Forum_ListPosts_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Forum_ListPostsByTopic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPostsByTopicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).ListPostsByTopic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_ListPostsByTopic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).ListPostsByTopic(ctx, req.(*ListPostsByTopicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_UpdatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).UpdatePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_UpdatePost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).UpdatePost(ctx, req.(*UpdatePostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_DeletePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).DeletePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_DeletePost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).DeletePost(ctx, req.(*DeletePostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_ListPostsByTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPostsByTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).ListPostsByTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_ListPostsByTag_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).ListPostsByTag(ctx, req.(*ListPostsByTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Forum_AddComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddCommentRequest)
 	if err := dec(in); err != nil {
@@ -512,24 +848,6 @@ func _Forum_AddComment_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ForumServer).AddComment(ctx, req.(*AddCommentRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Forum_ListCommentsByPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListCommentsByPostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForumServer).ListCommentsByPost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forum_ListCommentsByPost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForumServer).ListCommentsByPost(ctx, req.(*ListCommentsByPostRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -552,38 +870,56 @@ func _Forum_GetCommentByID_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Forum_ListTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+func _Forum_ListCommentsByPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCommentsByPostRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ForumServer).ListTags(ctx, in)
+		return srv.(ForumServer).ListCommentsByPost(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Forum_ListTags_FullMethodName,
+		FullMethod: Forum_ListCommentsByPost_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForumServer).ListTags(ctx, req.(*Empty))
+		return srv.(ForumServer).ListCommentsByPost(ctx, req.(*ListCommentsByPostRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Forum_ListTagsByPostID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListTagsByPostIDRequest)
+func _Forum_UpdateComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCommentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ForumServer).ListTagsByPostID(ctx, in)
+		return srv.(ForumServer).UpdateComment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Forum_ListTagsByPostID_FullMethodName,
+		FullMethod: Forum_UpdateComment_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForumServer).ListTagsByPostID(ctx, req.(*ListTagsByPostIDRequest))
+		return srv.(ForumServer).UpdateComment(ctx, req.(*UpdateCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_DeleteComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).DeleteComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_DeleteComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).DeleteComment(ctx, req.(*DeleteCommentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -624,6 +960,78 @@ func _Forum_GetTagByID_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Forum_ListTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTagsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).ListTags(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_ListTags_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).ListTags(ctx, req.(*ListTagsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_ListTagsByPostID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTagsByPostIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).ListTagsByPostID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_ListTagsByPostID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).ListTagsByPostID(ctx, req.(*ListTagsByPostIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_AddTagToPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTagToPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).AddTagToPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_AddTagToPost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).AddTagToPost(ctx, req.(*AddTagToPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Forum_RemoveTagFromPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveTagFromPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServer).RemoveTagFromPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Forum_RemoveTagFromPost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServer).RemoveTagFromPost(ctx, req.(*RemoveTagFromPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Forum_ServiceDesc is the grpc.ServiceDesc for Forum service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -640,6 +1048,18 @@ var Forum_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Forum_GetCategoryByID_Handler,
 		},
 		{
+			MethodName: "CreateCategory",
+			Handler:    _Forum_CreateCategory_Handler,
+		},
+		{
+			MethodName: "UpdateCategory",
+			Handler:    _Forum_UpdateCategory_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _Forum_DeleteCategory_Handler,
+		},
+		{
 			MethodName: "CreateTopic",
 			Handler:    _Forum_CreateTopic_Handler,
 		},
@@ -652,12 +1072,16 @@ var Forum_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Forum_ListTopicsByCategory_Handler,
 		},
 		{
-			MethodName: "CreatePost",
-			Handler:    _Forum_CreatePost_Handler,
+			MethodName: "UpdateTopic",
+			Handler:    _Forum_UpdateTopic_Handler,
 		},
 		{
-			MethodName: "ListPostsByTopic",
-			Handler:    _Forum_ListPostsByTopic_Handler,
+			MethodName: "DeleteTopic",
+			Handler:    _Forum_DeleteTopic_Handler,
+		},
+		{
+			MethodName: "CreatePost",
+			Handler:    _Forum_CreatePost_Handler,
 		},
 		{
 			MethodName: "GetPostByID",
@@ -668,16 +1092,48 @@ var Forum_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Forum_ListPosts_Handler,
 		},
 		{
+			MethodName: "ListPostsByTopic",
+			Handler:    _Forum_ListPostsByTopic_Handler,
+		},
+		{
+			MethodName: "UpdatePost",
+			Handler:    _Forum_UpdatePost_Handler,
+		},
+		{
+			MethodName: "DeletePost",
+			Handler:    _Forum_DeletePost_Handler,
+		},
+		{
+			MethodName: "ListPostsByTag",
+			Handler:    _Forum_ListPostsByTag_Handler,
+		},
+		{
 			MethodName: "AddComment",
 			Handler:    _Forum_AddComment_Handler,
+		},
+		{
+			MethodName: "GetCommentByID",
+			Handler:    _Forum_GetCommentByID_Handler,
 		},
 		{
 			MethodName: "ListCommentsByPost",
 			Handler:    _Forum_ListCommentsByPost_Handler,
 		},
 		{
-			MethodName: "GetCommentByID",
-			Handler:    _Forum_GetCommentByID_Handler,
+			MethodName: "UpdateComment",
+			Handler:    _Forum_UpdateComment_Handler,
+		},
+		{
+			MethodName: "DeleteComment",
+			Handler:    _Forum_DeleteComment_Handler,
+		},
+		{
+			MethodName: "CreateTag",
+			Handler:    _Forum_CreateTag_Handler,
+		},
+		{
+			MethodName: "GetTagByID",
+			Handler:    _Forum_GetTagByID_Handler,
 		},
 		{
 			MethodName: "ListTags",
@@ -688,12 +1144,12 @@ var Forum_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Forum_ListTagsByPostID_Handler,
 		},
 		{
-			MethodName: "CreateTag",
-			Handler:    _Forum_CreateTag_Handler,
+			MethodName: "AddTagToPost",
+			Handler:    _Forum_AddTagToPost_Handler,
 		},
 		{
-			MethodName: "GetTagByID",
-			Handler:    _Forum_GetTagByID_Handler,
+			MethodName: "RemoveTagFromPost",
+			Handler:    _Forum_RemoveTagFromPost_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
