@@ -4,57 +4,92 @@ package forum;
 
 option go_package = "tuzov.forum.v1;forumv1";
 
-service Forum {
-  // Категории 
-  rpc ListCategories(Empty) returns (ListCategoriesResponse);
-  rpc GetCategoryByID(GetCategoryByIDRequest) returns (GetCategoryByIDResponse);
-  rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse);
-  rpc UpdateCategory(UpdateCategoryRequest) returns (UpdateCategoryResponse);
-  rpc DeleteCategory(DeleteCategoryRequest) returns (DeleteCategoryResponse);
-
-  // Темы 
-  rpc CreateTopic(CreateTopicRequest) returns (CreateTopicResponse);
-  rpc GetTopicByID(GetTopicByIDRequest) returns (GetTopicByIDResponse);
-  rpc ListTopicsByCategory(ListTopicsByCategoryRequest) returns (ListTopicsByCategoryResponse);
-  rpc UpdateTopic(UpdateTopicRequest) returns (UpdateTopicResponse);
-  rpc DeleteTopic(DeleteTopicRequest) returns (DeleteTopicResponse);
-
-  // Посты 
-  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
-  rpc GetPostByID(GetPostRequest) returns (GetPostResponse);
-  rpc ListPosts(ListPostsRequest) returns (ListPostsResponse);
-  rpc ListPostsByTopic(ListPostsByTopicRequest) returns (ListPostsByTopicResponse);
-  rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse);
-  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
-  rpc ListPostsByTag(ListPostsByTagRequest) returns (ListPostsByTagResponse);
+service ForumService {
+  // Categories
+  rpc CreateCategory(CreateCategoryRequest) returns (CategoryResponse);
+  rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse);
+  rpc GetCategory(GetCategoryRequest) returns (CategoryResponse);
+  rpc UpdateCategory(UpdateCategoryRequest) returns (CategoryResponse);
+  rpc DeleteCategory(DeleteCategoryRequest) returns (Empty);
   
-  // Комментарии 
-  rpc AddComment(AddCommentRequest) returns (AddCommentResponse);
-  rpc GetCommentByID(GetCommentRequest) returns (GetCommentResponse);
-  rpc ListCommentsByPost(ListCommentsByPostRequest) returns (ListCommentsByPostResponse);
-  rpc UpdateComment(UpdateCommentRequest) returns (UpdateCommentResponse);
-  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
-
-  // Теги 
-  rpc CreateTag(CreateTagRequest) returns (CreateTagResponse);
-  rpc GetTagByID(GetTagByIDRequest) returns (GetTagByIDResponse);
+  // Topics
+  rpc CreateTopic(CreateTopicRequest) returns (TopicResponse);
+  rpc GetTopic(GetTopicRequest) returns (TopicResponse);
+  rpc ListTopics(ListTopicsRequest) returns (ListTopicsResponse);
+  rpc UpdateTopic(UpdateTopicRequest) returns (TopicResponse);
+  rpc DeleteTopic(DeleteTopicRequest) returns (Empty);
+  
+  // Posts
+  rpc CreatePost(CreatePostRequest) returns (PostResponse);
+  rpc GetPost(GetPostRequest) returns (PostResponse);
+  rpc ListPosts(ListPostsRequest) returns (ListPostsResponse);
+  rpc UpdatePost(UpdatePostRequest) returns (PostResponse);
+  rpc DeletePost(DeletePostRequest) returns (Empty);
+  
+  // Comments
+  rpc CreateComment(CreateCommentRequest) returns (CommentResponse);
+  rpc GetComment(GetCommentRequest) returns (CommentResponse);
+  rpc ListComments(ListCommentsRequest) returns (ListCommentsResponse);
+  rpc UpdateComment(UpdateCommentRequest) returns (CommentResponse);
+  rpc DeleteComment(DeleteCommentRequest) returns (Empty);
+  
+  // Tags
+  rpc CreateTag(CreateTagRequest) returns (TagResponse);
+  rpc GetTag(GetTagRequest) returns (TagResponse);
   rpc ListTags(ListTagsRequest) returns (ListTagsResponse);
-  rpc ListTagsByPostID(ListTagsByPostIDRequest) returns (ListTagsByPostIDResponse);
-  rpc AddTagToPost(AddTagToPostRequest) returns (AddTagToPostResponse);
-  rpc RemoveTagFromPost(RemoveTagFromPostRequest) returns (RemoveTagFromPostResponse);
+  
+  // Tag-Post Relationships
+  rpc AddTagToPost(AddTagToPostRequest) returns (Empty);
+  rpc RemoveTagFromPost(RemoveTagFromPostRequest) returns (Empty);
+  rpc ListTagsByPost(ListTagsByPostRequest) returns (ListTagsResponse);
+  rpc ListPostsByTag(ListPostsByTagRequest) returns (ListPostsResponse);
+  
+  // Search
+  rpc Search(SearchRequest) returns (SearchResponse);
 }
 
+// ========== Common Messages ==========
 message Empty {}
 
+message Pagination {
+  int32 limit = 1;
+  int32 offset = 2;
+}
 
-// Категории
+message Sorting {
+  SortField sort_field = 1;
+  SortOrder sort_order = 2;
+}
+
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_DELETED = 2;
+  STATUS_HIDDEN = 3;
+}
+
+enum SortOrder {
+  SORT_ORDER_UNSPECIFIED = 0;
+  SORT_ORDER_ASC = 1;
+  SORT_ORDER_DESC = 2;
+}
+
+enum SortField {
+  SORT_FIELD_UNSPECIFIED = 0;
+  SORT_FIELD_CREATED_AT = 1;
+  SORT_FIELD_UPDATED_AT = 2;
+  SORT_FIELD_TITLE = 3;
+  SORT_FIELD_POPULARITY = 4;
+}
+
+// ========== Category Messages ==========
 message Category {
   int64 id = 1;
   string title = 2;
   string slug = 3;
   string description = 4;
-  int64 created_at = 5;
-  int64 updated_at = 6;
+  int64 created_at = 5;  // Unix timestamp in milliseconds
+  int64 updated_at = 6;  // Unix timestamp in milliseconds
 }
 
 message CreateCategoryRequest {
@@ -62,93 +97,84 @@ message CreateCategoryRequest {
   string description = 2;
 }
 
-message CreateCategoryResponse {
-  int64 category_id = 1;
-}
-
 message UpdateCategoryRequest {
-  int64 category_id = 1;
-  string title = 2;
-  string description = 3;
+  int64 id = 1;
+  optional string title = 2;
+  optional string description = 3;
 }
 
-message UpdateCategoryResponse {
-  Category category = 1;
+message ListCategoriesRequest {
+  Pagination pagination = 1;
 }
-
-message DeleteCategoryRequest {
-  int64 category_id = 1;
-}
-
-message DeleteCategoryResponse {}
 
 message ListCategoriesResponse {
   repeated Category categories = 1;
+  int64 total_count = 2;
 }
 
-message GetCategoryByIDRequest {
-  int64 category_id = 1;
+message GetCategoryRequest {
+  int64 id = 1;
 }
 
-message GetCategoryByIDResponse {
+message DeleteCategoryRequest {
+  int64 id = 1;
+}
+
+message CategoryResponse {
   Category category = 1;
 }
 
-
-// Темы 
+// ========== Topic Messages ==========
 message Topic {
   int64 id = 1;
   string title = 2;
   int64 author_id = 3;
   int64 category_id = 4;
-  int64 created_at = 5;
+  int64 created_at = 5;  // Unix timestamp in milliseconds
+  Status status = 6;
+  int64 posts_count = 7;
+  int64 views_count = 8;
+  int64 last_activity = 9;  // Unix timestamp in milliseconds
 }
 
 message CreateTopicRequest {
   string title = 1;
   int64 author_id = 2;
   int64 category_id = 3;
-}
-
-message CreateTopicResponse {
-  int64 topic_id = 1;
-}
-
-message GetTopicByIDRequest {
-  int64 topic_id = 1;
-}
-
-message GetTopicByIDResponse {
-  Topic topic = 1;
-}
-
-message ListTopicsByCategoryRequest {
-  int64 category_id = 1;
-  int32 limit = 2;
-  int32 offset = 3;
-}
-
-message ListTopicsByCategoryResponse {
-  repeated Topic topics = 1;
+  string content = 4;  // First post content
 }
 
 message UpdateTopicRequest {
-  int64 topic_id = 1;
-  string title = 2;
-  int64 category_id = 3;
+  int64 id = 1;
+  optional string title = 2;
+  optional int64 category_id = 3;
 }
 
-message UpdateTopicResponse {
-  Topic topic = 1;
+message ListTopicsRequest {
+  optional int64 category_id = 1;
+  Pagination pagination = 2;
+  Sorting sorting = 3;
+}
+
+message ListTopicsResponse {
+  repeated Topic topics = 1;
+  int64 total_count = 2;
+}
+
+message GetTopicRequest {
+  int64 id = 1;
 }
 
 message DeleteTopicRequest {
-  int64 topic_id = 1;
+  int64 id = 1;
 }
 
-message DeleteTopicResponse {}
+message TopicResponse {
+  Topic topic = 1;
+  Post first_post = 2;  // First post in topic
+}
 
-// Посты
+// ========== Post Messages ==========
 message Post {
   int64 id = 1;
   int64 topic_id = 2;
@@ -156,154 +182,127 @@ message Post {
   string title = 4;
   string content = 5;
   repeated string images = 6;
-  repeated Tag tags = 7;
-  int64 created_at = 8;
-  int64 updated_at = 9;
+  int64 created_at = 7;  // Unix timestamp in milliseconds
+  int64 updated_at = 8;  // Unix timestamp in milliseconds
+  Status status = 9;
+  int64 views_count = 10;
+  int64 comments_count = 11;
+  int64 likes_count = 12;
 }
 
 message CreatePostRequest {
   int64 topic_id = 1;
   int64 author_id = 2;
-  string content = 3;
-}
-
-message CreatePostResponse {
-  int64 post_id = 1;
-}
-
-message ListPostsByTopicRequest {
-  int64 topic_id = 1;
-  int32 limit = 2;
-  int32 offset = 3;
-}
-
-message ListPostsByTopicResponse {
-  repeated Post posts = 1;
+  string title = 3;
+  string content = 4;
+  repeated string images = 5;
+  repeated int64 tag_ids = 6;  // Initial tags
 }
 
 message UpdatePostRequest {
-  int64 post_id = 1;
-  string title = 2;
-  string content = 3;
+  int64 id = 1;
+  optional string title = 2;
+  optional string content = 3;
   repeated string images = 4;
+  repeated int64 tag_ids = 5;  // Full tag set
 }
 
-message UpdatePostResponse {
-  Post post = 1;
+message ListPostsRequest {
+  optional int64 topic_id = 1;
+  optional int64 tag_id = 2;
+  Pagination pagination = 3;
+  Sorting sorting = 4;
+}
+
+message ListPostsResponse {
+  repeated Post posts = 1;
+  int64 total_count = 2;
+}
+
+message GetPostRequest {
+  int64 id = 1;
 }
 
 message DeletePostRequest {
-  int64 post_id = 1;
+  int64 id = 1;
 }
 
-message DeletePostResponse {}
+message PostResponse {
+  Post post = 1;
+}
 
-// Комментарии 
+// ========== Comment Messages ==========
 message Comment {
   int64 id = 1;
   int64 post_id = 2;
   int64 author_id = 3;
   string content = 4;
-  int64 created_at = 5;
+  int64 created_at = 5;  // Unix timestamp in milliseconds
+  int64 updated_at = 6;  // Unix timestamp in milliseconds
 }
 
-message AddCommentRequest {
+message CreateCommentRequest {
   int64 post_id = 1;
   int64 author_id = 2;
   string content = 3;
 }
 
-message AddCommentResponse {
-  int64 comment_id = 1;
-}
-
-message ListCommentsByPostRequest {
-  int64 post_id = 1;
-  int32 limit = 2;
-  int32 offset = 3;
-}
-
-message ListCommentsByPostResponse {
-  repeated Comment comments = 1;
-}
 message UpdateCommentRequest {
-  int64 comment_id = 1;
+  int64 id = 1;
   string content = 2;
 }
 
-message UpdateCommentResponse {
-  Comment comment = 1;
+message ListCommentsRequest {
+  int64 post_id = 1;
+  Pagination pagination = 2;
+}
+
+message ListCommentsResponse {
+  repeated Comment comments = 1;
+  int64 total_count = 2;
+}
+
+message GetCommentRequest {
+  int64 id = 1;
 }
 
 message DeleteCommentRequest {
-  int64 comment_id = 1;
+  int64 id = 1;
 }
 
-message DeleteCommentResponse {}
+message CommentResponse {
+  Comment comment = 1;
+}
 
-// Теги 
+// ========== Tag Messages ==========
 message Tag {
   int64 id = 1;
-  string title = 2;
+  string name = 2;
   string slug = 3;
+}
+
+message CreateTagRequest {
+  string name = 1;
+}
+
+message GetTagRequest {
+  oneof identifier {
+    int64 id = 1;
+    string slug = 2;
+  }
+}
+
+message ListTagsRequest {
+  Pagination pagination = 1;
 }
 
 message ListTagsResponse {
   repeated Tag tags = 1;
+  int64 total_count = 2;
 }
 
-message GetCommentRequest {
-  int64 comment_id = 1;
-}
-
-message GetCommentResponse {
-  Comment comment = 1;
-}
-
-message GetPostRequest {
+message ListTagsByPostRequest {
   int64 post_id = 1;
-}
-
-message GetPostResponse {
-  Post post = 1;
-}
-
-message ListPostsRequest {
-  int32 limit = 1;
-  int32 offset = 2;
-}
-
-message ListPostsResponse {
-  repeated Post posts = 1;
-}
-
-message CreateTagRequest {
-  string title = 1;
-  string slug = 2;
-}
-
-message CreateTagResponse {
-  int64 tag_id = 1;
-}
-
-message GetTagByIDRequest {
-  int64 tag_id = 1;
-}
-
-message GetTagByIDResponse {
-  Tag tag = 1;
-}
-
-message ListTagsRequest {
-  int32 limit = 1;
-  int32 offset = 2;
-}
-message ListTagsByPostIDRequest {
-  int64 post_id = 1;
-}
-
-message ListTagsByPostIDResponse {
-  repeated Tag tags = 1;
 }
 
 message AddTagToPostRequest {
@@ -311,21 +310,29 @@ message AddTagToPostRequest {
   int64 tag_id = 2;
 }
 
-message AddTagToPostResponse {}
-
 message RemoveTagFromPostRequest {
   int64 post_id = 1;
   int64 tag_id = 2;
 }
 
-message RemoveTagFromPostResponse {}
+message TagResponse {
+  Tag tag = 1;
+}
+
+// ========== Search ==========
+message SearchRequest {
+  string query = 1;
+  Pagination pagination = 2;
+}
+
+message SearchResponse {
+  repeated Post posts = 1;
+  repeated Topic topics = 2;
+  int64 total_posts = 3;
+  int64 total_topics = 4;
+}
 
 message ListPostsByTagRequest {
   int64 tag_id = 1;
-  int32 limit = 2;
-  int32 offset = 3;
-}
-
-message ListPostsByTagResponse {
-  repeated Post posts = 1;
+  Pagination pagination = 2;
 }
