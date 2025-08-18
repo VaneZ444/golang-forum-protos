@@ -1241,12 +1241,13 @@ type Post struct {
 	Title         string                 `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
 	Content       string                 `protobuf:"bytes,5,opt,name=content,proto3" json:"content,omitempty"`
 	Images        []string               `protobuf:"bytes,6,rep,name=images,proto3" json:"images,omitempty"`
-	CreatedAt     int64                  `protobuf:"varint,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"` // Unix timestamp in milliseconds
-	UpdatedAt     int64                  `protobuf:"varint,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"` // Unix timestamp in milliseconds
-	Status        Status                 `protobuf:"varint,9,opt,name=status,proto3,enum=forum.Status" json:"status,omitempty"`
-	ViewsCount    int64                  `protobuf:"varint,10,opt,name=views_count,json=viewsCount,proto3" json:"views_count,omitempty"`
-	CommentsCount int64                  `protobuf:"varint,11,opt,name=comments_count,json=commentsCount,proto3" json:"comments_count,omitempty"`
-	LikesCount    int64                  `protobuf:"varint,12,opt,name=likes_count,json=likesCount,proto3" json:"likes_count,omitempty"`
+	Tags          []*Tag                 `protobuf:"bytes,7,rep,name=tags,proto3" json:"tags,omitempty"`
+	CreatedAt     int64                  `protobuf:"varint,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"` // Unix timestamp in milliseconds
+	UpdatedAt     int64                  `protobuf:"varint,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"` // Unix timestamp in milliseconds
+	Status        Status                 `protobuf:"varint,10,opt,name=status,proto3,enum=forum.Status" json:"status,omitempty"`
+	ViewsCount    int64                  `protobuf:"varint,11,opt,name=views_count,json=viewsCount,proto3" json:"views_count,omitempty"`
+	CommentsCount int64                  `protobuf:"varint,12,opt,name=comments_count,json=commentsCount,proto3" json:"comments_count,omitempty"`
+	LikesCount    int64                  `protobuf:"varint,13,opt,name=likes_count,json=likesCount,proto3" json:"likes_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1319,6 +1320,13 @@ func (x *Post) GetContent() string {
 func (x *Post) GetImages() []string {
 	if x != nil {
 		return x.Images
+	}
+	return nil
+}
+
+func (x *Post) GetTags() []*Tag {
+	if x != nil {
+		return x.Tags
 	}
 	return nil
 }
@@ -2953,24 +2961,26 @@ const file_forum_forum_proto_rawDesc = "" +
 	"\rTopicResponse\x12\"\n" +
 	"\x05topic\x18\x01 \x01(\v2\f.forum.TopicR\x05topic\x12*\n" +
 	"\n" +
-	"first_post\x18\x02 \x01(\v2\v.forum.PostR\tfirstPost\"\xe4\x02\n" +
+	"first_post\x18\x02 \x01(\v2\v.forum.PostR\tfirstPost\"\x84\x03\n" +
 	"\x04Post\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x19\n" +
 	"\btopic_id\x18\x02 \x01(\x03R\atopicId\x12\x1b\n" +
 	"\tauthor_id\x18\x03 \x01(\x03R\bauthorId\x12\x14\n" +
 	"\x05title\x18\x04 \x01(\tR\x05title\x12\x18\n" +
 	"\acontent\x18\x05 \x01(\tR\acontent\x12\x16\n" +
-	"\x06images\x18\x06 \x03(\tR\x06images\x12\x1d\n" +
+	"\x06images\x18\x06 \x03(\tR\x06images\x12\x1e\n" +
+	"\x04tags\x18\a \x03(\v2\n" +
+	".forum.TagR\x04tags\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\a \x01(\x03R\tcreatedAt\x12\x1d\n" +
+	"created_at\x18\b \x01(\x03R\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\x03R\tupdatedAt\x12%\n" +
-	"\x06status\x18\t \x01(\x0e2\r.forum.StatusR\x06status\x12\x1f\n" +
-	"\vviews_count\x18\n" +
-	" \x01(\x03R\n" +
+	"updated_at\x18\t \x01(\x03R\tupdatedAt\x12%\n" +
+	"\x06status\x18\n" +
+	" \x01(\x0e2\r.forum.StatusR\x06status\x12\x1f\n" +
+	"\vviews_count\x18\v \x01(\x03R\n" +
 	"viewsCount\x12%\n" +
-	"\x0ecomments_count\x18\v \x01(\x03R\rcommentsCount\x12\x1f\n" +
-	"\vlikes_count\x18\f \x01(\x03R\n" +
+	"\x0ecomments_count\x18\f \x01(\x03R\rcommentsCount\x12\x1f\n" +
+	"\vlikes_count\x18\r \x01(\x03R\n" +
 	"likesCount\"\xac\x01\n" +
 	"\x11CreatePostRequest\x12\x19\n" +
 	"\btopic_id\x18\x01 \x01(\x03R\atopicId\x12\x1b\n" +
@@ -3213,82 +3223,83 @@ var file_forum_forum_proto_depIdxs = []int32{
 	14, // 8: forum.ListTopicsResponse.topics:type_name -> forum.Topic
 	14, // 9: forum.TopicResponse.topic:type_name -> forum.Topic
 	22, // 10: forum.TopicResponse.first_post:type_name -> forum.Post
-	0,  // 11: forum.Post.status:type_name -> forum.Status
-	4,  // 12: forum.ListPostsRequest.pagination:type_name -> forum.Pagination
-	5,  // 13: forum.ListPostsRequest.sorting:type_name -> forum.Sorting
-	22, // 14: forum.ListPostsResponse.posts:type_name -> forum.Post
-	22, // 15: forum.PostResponse.post:type_name -> forum.Post
-	4,  // 16: forum.ListCommentsRequest.pagination:type_name -> forum.Pagination
-	30, // 17: forum.ListCommentsResponse.comments:type_name -> forum.Comment
-	30, // 18: forum.CommentResponse.comment:type_name -> forum.Comment
-	4,  // 19: forum.ListTagsRequest.pagination:type_name -> forum.Pagination
-	38, // 20: forum.ListTagsResponse.tags:type_name -> forum.Tag
-	38, // 21: forum.TagResponse.tag:type_name -> forum.Tag
-	4,  // 22: forum.SearchRequest.pagination:type_name -> forum.Pagination
-	22, // 23: forum.SearchResponse.posts:type_name -> forum.Post
-	14, // 24: forum.SearchResponse.topics:type_name -> forum.Topic
-	4,  // 25: forum.ListPostsByTagRequest.pagination:type_name -> forum.Pagination
-	7,  // 26: forum.ForumService.CreateCategory:input_type -> forum.CreateCategoryRequest
-	9,  // 27: forum.ForumService.ListCategories:input_type -> forum.ListCategoriesRequest
-	11, // 28: forum.ForumService.GetCategory:input_type -> forum.GetCategoryRequest
-	8,  // 29: forum.ForumService.UpdateCategory:input_type -> forum.UpdateCategoryRequest
-	12, // 30: forum.ForumService.DeleteCategory:input_type -> forum.DeleteCategoryRequest
-	15, // 31: forum.ForumService.CreateTopic:input_type -> forum.CreateTopicRequest
-	19, // 32: forum.ForumService.GetTopic:input_type -> forum.GetTopicRequest
-	17, // 33: forum.ForumService.ListTopics:input_type -> forum.ListTopicsRequest
-	16, // 34: forum.ForumService.UpdateTopic:input_type -> forum.UpdateTopicRequest
-	20, // 35: forum.ForumService.DeleteTopic:input_type -> forum.DeleteTopicRequest
-	23, // 36: forum.ForumService.CreatePost:input_type -> forum.CreatePostRequest
-	27, // 37: forum.ForumService.GetPost:input_type -> forum.GetPostRequest
-	25, // 38: forum.ForumService.ListPosts:input_type -> forum.ListPostsRequest
-	24, // 39: forum.ForumService.UpdatePost:input_type -> forum.UpdatePostRequest
-	28, // 40: forum.ForumService.DeletePost:input_type -> forum.DeletePostRequest
-	31, // 41: forum.ForumService.CreateComment:input_type -> forum.CreateCommentRequest
-	35, // 42: forum.ForumService.GetComment:input_type -> forum.GetCommentRequest
-	33, // 43: forum.ForumService.ListComments:input_type -> forum.ListCommentsRequest
-	32, // 44: forum.ForumService.UpdateComment:input_type -> forum.UpdateCommentRequest
-	36, // 45: forum.ForumService.DeleteComment:input_type -> forum.DeleteCommentRequest
-	39, // 46: forum.ForumService.CreateTag:input_type -> forum.CreateTagRequest
-	40, // 47: forum.ForumService.GetTag:input_type -> forum.GetTagRequest
-	41, // 48: forum.ForumService.ListTags:input_type -> forum.ListTagsRequest
-	44, // 49: forum.ForumService.AddTagToPost:input_type -> forum.AddTagToPostRequest
-	45, // 50: forum.ForumService.RemoveTagFromPost:input_type -> forum.RemoveTagFromPostRequest
-	43, // 51: forum.ForumService.ListTagsByPost:input_type -> forum.ListTagsByPostRequest
-	49, // 52: forum.ForumService.ListPostsByTag:input_type -> forum.ListPostsByTagRequest
-	47, // 53: forum.ForumService.Search:input_type -> forum.SearchRequest
-	13, // 54: forum.ForumService.CreateCategory:output_type -> forum.CategoryResponse
-	10, // 55: forum.ForumService.ListCategories:output_type -> forum.ListCategoriesResponse
-	13, // 56: forum.ForumService.GetCategory:output_type -> forum.CategoryResponse
-	13, // 57: forum.ForumService.UpdateCategory:output_type -> forum.CategoryResponse
-	3,  // 58: forum.ForumService.DeleteCategory:output_type -> forum.Empty
-	21, // 59: forum.ForumService.CreateTopic:output_type -> forum.TopicResponse
-	21, // 60: forum.ForumService.GetTopic:output_type -> forum.TopicResponse
-	18, // 61: forum.ForumService.ListTopics:output_type -> forum.ListTopicsResponse
-	21, // 62: forum.ForumService.UpdateTopic:output_type -> forum.TopicResponse
-	3,  // 63: forum.ForumService.DeleteTopic:output_type -> forum.Empty
-	29, // 64: forum.ForumService.CreatePost:output_type -> forum.PostResponse
-	29, // 65: forum.ForumService.GetPost:output_type -> forum.PostResponse
-	26, // 66: forum.ForumService.ListPosts:output_type -> forum.ListPostsResponse
-	29, // 67: forum.ForumService.UpdatePost:output_type -> forum.PostResponse
-	3,  // 68: forum.ForumService.DeletePost:output_type -> forum.Empty
-	37, // 69: forum.ForumService.CreateComment:output_type -> forum.CommentResponse
-	37, // 70: forum.ForumService.GetComment:output_type -> forum.CommentResponse
-	34, // 71: forum.ForumService.ListComments:output_type -> forum.ListCommentsResponse
-	37, // 72: forum.ForumService.UpdateComment:output_type -> forum.CommentResponse
-	3,  // 73: forum.ForumService.DeleteComment:output_type -> forum.Empty
-	46, // 74: forum.ForumService.CreateTag:output_type -> forum.TagResponse
-	46, // 75: forum.ForumService.GetTag:output_type -> forum.TagResponse
-	42, // 76: forum.ForumService.ListTags:output_type -> forum.ListTagsResponse
-	3,  // 77: forum.ForumService.AddTagToPost:output_type -> forum.Empty
-	3,  // 78: forum.ForumService.RemoveTagFromPost:output_type -> forum.Empty
-	42, // 79: forum.ForumService.ListTagsByPost:output_type -> forum.ListTagsResponse
-	26, // 80: forum.ForumService.ListPostsByTag:output_type -> forum.ListPostsResponse
-	48, // 81: forum.ForumService.Search:output_type -> forum.SearchResponse
-	54, // [54:82] is the sub-list for method output_type
-	26, // [26:54] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	38, // 11: forum.Post.tags:type_name -> forum.Tag
+	0,  // 12: forum.Post.status:type_name -> forum.Status
+	4,  // 13: forum.ListPostsRequest.pagination:type_name -> forum.Pagination
+	5,  // 14: forum.ListPostsRequest.sorting:type_name -> forum.Sorting
+	22, // 15: forum.ListPostsResponse.posts:type_name -> forum.Post
+	22, // 16: forum.PostResponse.post:type_name -> forum.Post
+	4,  // 17: forum.ListCommentsRequest.pagination:type_name -> forum.Pagination
+	30, // 18: forum.ListCommentsResponse.comments:type_name -> forum.Comment
+	30, // 19: forum.CommentResponse.comment:type_name -> forum.Comment
+	4,  // 20: forum.ListTagsRequest.pagination:type_name -> forum.Pagination
+	38, // 21: forum.ListTagsResponse.tags:type_name -> forum.Tag
+	38, // 22: forum.TagResponse.tag:type_name -> forum.Tag
+	4,  // 23: forum.SearchRequest.pagination:type_name -> forum.Pagination
+	22, // 24: forum.SearchResponse.posts:type_name -> forum.Post
+	14, // 25: forum.SearchResponse.topics:type_name -> forum.Topic
+	4,  // 26: forum.ListPostsByTagRequest.pagination:type_name -> forum.Pagination
+	7,  // 27: forum.ForumService.CreateCategory:input_type -> forum.CreateCategoryRequest
+	9,  // 28: forum.ForumService.ListCategories:input_type -> forum.ListCategoriesRequest
+	11, // 29: forum.ForumService.GetCategory:input_type -> forum.GetCategoryRequest
+	8,  // 30: forum.ForumService.UpdateCategory:input_type -> forum.UpdateCategoryRequest
+	12, // 31: forum.ForumService.DeleteCategory:input_type -> forum.DeleteCategoryRequest
+	15, // 32: forum.ForumService.CreateTopic:input_type -> forum.CreateTopicRequest
+	19, // 33: forum.ForumService.GetTopic:input_type -> forum.GetTopicRequest
+	17, // 34: forum.ForumService.ListTopics:input_type -> forum.ListTopicsRequest
+	16, // 35: forum.ForumService.UpdateTopic:input_type -> forum.UpdateTopicRequest
+	20, // 36: forum.ForumService.DeleteTopic:input_type -> forum.DeleteTopicRequest
+	23, // 37: forum.ForumService.CreatePost:input_type -> forum.CreatePostRequest
+	27, // 38: forum.ForumService.GetPost:input_type -> forum.GetPostRequest
+	25, // 39: forum.ForumService.ListPosts:input_type -> forum.ListPostsRequest
+	24, // 40: forum.ForumService.UpdatePost:input_type -> forum.UpdatePostRequest
+	28, // 41: forum.ForumService.DeletePost:input_type -> forum.DeletePostRequest
+	31, // 42: forum.ForumService.CreateComment:input_type -> forum.CreateCommentRequest
+	35, // 43: forum.ForumService.GetComment:input_type -> forum.GetCommentRequest
+	33, // 44: forum.ForumService.ListComments:input_type -> forum.ListCommentsRequest
+	32, // 45: forum.ForumService.UpdateComment:input_type -> forum.UpdateCommentRequest
+	36, // 46: forum.ForumService.DeleteComment:input_type -> forum.DeleteCommentRequest
+	39, // 47: forum.ForumService.CreateTag:input_type -> forum.CreateTagRequest
+	40, // 48: forum.ForumService.GetTag:input_type -> forum.GetTagRequest
+	41, // 49: forum.ForumService.ListTags:input_type -> forum.ListTagsRequest
+	44, // 50: forum.ForumService.AddTagToPost:input_type -> forum.AddTagToPostRequest
+	45, // 51: forum.ForumService.RemoveTagFromPost:input_type -> forum.RemoveTagFromPostRequest
+	43, // 52: forum.ForumService.ListTagsByPost:input_type -> forum.ListTagsByPostRequest
+	49, // 53: forum.ForumService.ListPostsByTag:input_type -> forum.ListPostsByTagRequest
+	47, // 54: forum.ForumService.Search:input_type -> forum.SearchRequest
+	13, // 55: forum.ForumService.CreateCategory:output_type -> forum.CategoryResponse
+	10, // 56: forum.ForumService.ListCategories:output_type -> forum.ListCategoriesResponse
+	13, // 57: forum.ForumService.GetCategory:output_type -> forum.CategoryResponse
+	13, // 58: forum.ForumService.UpdateCategory:output_type -> forum.CategoryResponse
+	3,  // 59: forum.ForumService.DeleteCategory:output_type -> forum.Empty
+	21, // 60: forum.ForumService.CreateTopic:output_type -> forum.TopicResponse
+	21, // 61: forum.ForumService.GetTopic:output_type -> forum.TopicResponse
+	18, // 62: forum.ForumService.ListTopics:output_type -> forum.ListTopicsResponse
+	21, // 63: forum.ForumService.UpdateTopic:output_type -> forum.TopicResponse
+	3,  // 64: forum.ForumService.DeleteTopic:output_type -> forum.Empty
+	29, // 65: forum.ForumService.CreatePost:output_type -> forum.PostResponse
+	29, // 66: forum.ForumService.GetPost:output_type -> forum.PostResponse
+	26, // 67: forum.ForumService.ListPosts:output_type -> forum.ListPostsResponse
+	29, // 68: forum.ForumService.UpdatePost:output_type -> forum.PostResponse
+	3,  // 69: forum.ForumService.DeletePost:output_type -> forum.Empty
+	37, // 70: forum.ForumService.CreateComment:output_type -> forum.CommentResponse
+	37, // 71: forum.ForumService.GetComment:output_type -> forum.CommentResponse
+	34, // 72: forum.ForumService.ListComments:output_type -> forum.ListCommentsResponse
+	37, // 73: forum.ForumService.UpdateComment:output_type -> forum.CommentResponse
+	3,  // 74: forum.ForumService.DeleteComment:output_type -> forum.Empty
+	46, // 75: forum.ForumService.CreateTag:output_type -> forum.TagResponse
+	46, // 76: forum.ForumService.GetTag:output_type -> forum.TagResponse
+	42, // 77: forum.ForumService.ListTags:output_type -> forum.ListTagsResponse
+	3,  // 78: forum.ForumService.AddTagToPost:output_type -> forum.Empty
+	3,  // 79: forum.ForumService.RemoveTagFromPost:output_type -> forum.Empty
+	42, // 80: forum.ForumService.ListTagsByPost:output_type -> forum.ListTagsResponse
+	26, // 81: forum.ForumService.ListPostsByTag:output_type -> forum.ListPostsResponse
+	48, // 82: forum.ForumService.Search:output_type -> forum.SearchResponse
+	55, // [55:83] is the sub-list for method output_type
+	27, // [27:55] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_forum_forum_proto_init() }
