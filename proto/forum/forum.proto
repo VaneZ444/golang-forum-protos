@@ -134,7 +134,7 @@ message Topic {
   Status status = 6;
   int64 posts_count = 7;
   int64 views_count = 8;
-  int64 last_activity = 9;
+  google.protobuf.Timestamp last_activity = 9;
 }
 
 message CreateTopicRequest {
