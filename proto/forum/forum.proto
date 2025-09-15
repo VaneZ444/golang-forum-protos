@@ -37,7 +37,8 @@ service ForumService {
   rpc CreateTag(CreateTagRequest) returns (TagResponse);
   rpc GetTag(GetTagRequest) returns (TagResponse);
   rpc ListTags(ListTagsRequest) returns (ListTagsResponse);
-  
+  rpc DeleteTag(DeleteTagRequest) returns (Empty);
+
   // Tag-Post Relationships
   rpc AddTagToPost(AddTagToPostRequest) returns (Empty);
   rpc RemoveTagFromPost(RemoveTagFromPostRequest) returns (Empty);
@@ -292,7 +293,12 @@ message GetTagRequest {
     string slug = 2;
   }
 }
-
+message DeleteTagRequest {
+  oneof identifier {
+    int64 id = 1;
+    string slug = 2;
+  }
+}
 message ListTagsRequest {
   Pagination pagination = 1;
 }
