@@ -23,6 +23,8 @@ const (
 	Auth_Login_FullMethodName         = "/auth.Auth/Login"
 	Auth_IsAdmin_FullMethodName       = "/auth.Auth/IsAdmin"
 	Auth_ValidateToken_FullMethodName = "/auth.Auth/ValidateToken"
+	Auth_CreateAdmin_FullMethodName   = "/auth.Auth/CreateAdmin"
+	Auth_BanUser_FullMethodName       = "/auth.Auth/BanUser"
 )
 
 // AuthClient is the client API for Auth service.
@@ -31,13 +33,12 @@ const (
 //
 // Auth is service for managing permissions and roles.
 type AuthClient interface {
-	// Register registers a new user.
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
-	// Login logs in a user and returns an auth token.
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
-	// IsAdmin checks for admin and returns a boolean.
 	IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...grpc.CallOption) (*IsAdminResponse, error)
 	ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error)
+	CreateAdmin(ctx context.Context, in *CreateAdminRequest, opts ...grpc.CallOption) (*CreateAdminResponse, error)
+	BanUser(ctx context.Context, in *BanUserRequest, opts ...grpc.CallOption) (*BanUserResponse, error)
 }
 
 type authClient struct {
@@ -88,19 +89,38 @@ func (c *authClient) ValidateToken(ctx context.Context, in *ValidateTokenRequest
 	return out, nil
 }
 
+func (c *authClient) CreateAdmin(ctx context.Context, in *CreateAdminRequest, opts ...grpc.CallOption) (*CreateAdminResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateAdminResponse)
+	err := c.cc.Invoke(ctx, Auth_CreateAdmin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) BanUser(ctx context.Context, in *BanUserRequest, opts ...grpc.CallOption) (*BanUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BanUserResponse)
+	err := c.cc.Invoke(ctx, Auth_BanUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
 //
 // Auth is service for managing permissions and roles.
 type AuthServer interface {
-	// Register registers a new user.
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
-	// Login logs in a user and returns an auth token.
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
-	// IsAdmin checks for admin and returns a boolean.
 	IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error)
 	ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error)
+	CreateAdmin(context.Context, *CreateAdminRequest) (*CreateAdminResponse, error)
+	BanUser(context.Context, *BanUserRequest) (*BanUserResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -122,6 +142,12 @@ func (UnimplementedAuthServer) IsAdmin(context.Context, *IsAdminRequest) (*IsAdm
 }
 func (UnimplementedAuthServer) ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateToken not implemented")
+}
+func (UnimplementedAuthServer) CreateAdmin(context.Context, *CreateAdminRequest) (*CreateAdminResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAdmin not implemented")
+}
+func (UnimplementedAuthServer) BanUser(context.Context, *BanUserRequest) (*BanUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BanUser not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -216,6 +242,42 @@ func _Auth_ValidateToken_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_CreateAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAdminRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).CreateAdmin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_CreateAdmin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).CreateAdmin(ctx, req.(*CreateAdminRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_BanUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BanUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).BanUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_BanUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).BanUser(ctx, req.(*BanUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -238,6 +300,14 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidateToken",
 			Handler:    _Auth_ValidateToken_Handler,
+		},
+		{
+			MethodName: "CreateAdmin",
+			Handler:    _Auth_CreateAdmin_Handler,
+		},
+		{
+			MethodName: "BanUser",
+			Handler:    _Auth_BanUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

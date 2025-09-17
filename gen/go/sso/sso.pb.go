@@ -67,8 +67,9 @@ func (x *ValidateTokenRequest) GetToken() string {
 
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`       // Email of the user to register.
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"` // Password of the user to register.
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`       // Email of the user to register
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"` // Password of the user
+	Nickname      string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"` // Nickname of the user
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -117,9 +118,17 @@ func (x *RegisterRequest) GetPassword() string {
 	return ""
 }
 
+func (x *RegisterRequest) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
 type RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // User ID of the registered user.
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // ID of registered user
+	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`            // Nickname of registered user
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -161,11 +170,19 @@ func (x *RegisterResponse) GetUserId() int64 {
 	return 0
 }
 
+func (x *RegisterResponse) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
 type ValidateTokenResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Valid         bool                   `protobuf:"varint,1,opt,name=valid,proto3" json:"valid,omitempty"`                 // Indicates whether the token is valid
 	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // ID of the user associated with the token
-	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`                    // Role of the user (e.g., "admin", "user")
+	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`                    // Role of the user
+	Nickname      string                 `protobuf:"bytes,4,opt,name=nickname,proto3" json:"nickname,omitempty"`            // Nickname of the user
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -221,11 +238,18 @@ func (x *ValidateTokenResponse) GetRole() string {
 	return ""
 }
 
+func (x *ValidateTokenResponse) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
 type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`               // Email of the user to login.
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`         // Password of the user to login.
-	AppId         int32                  `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"` // ID of the app to login to.
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	AppId         int32                  `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -283,7 +307,8 @@ func (x *LoginRequest) GetAppId() int32 {
 
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"` // Auth token of the logged in user.
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"` // Чтобы фронту сразу знать ник
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -325,9 +350,16 @@ func (x *LoginResponse) GetToken() string {
 	return ""
 }
 
+func (x *LoginResponse) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
 type IsAdminRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // User ID to validate
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -371,7 +403,7 @@ func (x *IsAdminRequest) GetUserId() int64 {
 
 type IsAdminResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	IsAdmin       bool                   `protobuf:"varint,1,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"` // Indicates whether the user is admin
+	IsAdmin       bool                   `protobuf:"varint,1,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -413,12 +445,12 @@ func (x *IsAdminResponse) GetIsAdmin() bool {
 	return false
 }
 
-// Создание администратора
 type CreateAdminRequest struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	Email            string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Password         string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	RequestingUserId int64                  `protobuf:"varint,3,opt,name=requesting_user_id,json=requestingUserId,proto3" json:"requesting_user_id,omitempty"` // ID пользователя, который запрашивает действие
+	Nickname         string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	RequestingUserId int64                  `protobuf:"varint,4,opt,name=requesting_user_id,json=requestingUserId,proto3" json:"requesting_user_id,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -467,6 +499,13 @@ func (x *CreateAdminRequest) GetPassword() string {
 	return ""
 }
 
+func (x *CreateAdminRequest) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
 func (x *CreateAdminRequest) GetRequestingUserId() int64 {
 	if x != nil {
 		return x.RequestingUserId
@@ -477,6 +516,7 @@ func (x *CreateAdminRequest) GetRequestingUserId() int64 {
 type CreateAdminResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -518,7 +558,13 @@ func (x *CreateAdminResponse) GetUserId() int64 {
 	return 0
 }
 
-// Блокировка пользователя (опционально)
+func (x *CreateAdminResponse) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
 type BanUserRequest struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	UserId           int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -629,43 +675,51 @@ const file_sso_sso_proto_rawDesc = "" +
 	"\n" +
 	"\rsso/sso.proto\x12\x04auth\",\n" +
 	"\x14ValidateTokenRequest\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"C\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"_\n" +
 	"\x0fRegisterRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"+\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\"G\n" +
 	"\x10RegisterResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"Z\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
+	"\bnickname\x18\x02 \x01(\tR\bnickname\"v\n" +
 	"\x15ValidateTokenResponse\x12\x14\n" +
 	"\x05valid\x18\x01 \x01(\bR\x05valid\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x12\n" +
-	"\x04role\x18\x03 \x01(\tR\x04role\"W\n" +
+	"\x04role\x18\x03 \x01(\tR\x04role\x12\x1a\n" +
+	"\bnickname\x18\x04 \x01(\tR\bnickname\"W\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x15\n" +
-	"\x06app_id\x18\x03 \x01(\x05R\x05appId\"%\n" +
+	"\x06app_id\x18\x03 \x01(\x05R\x05appId\"A\n" +
 	"\rLoginResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\")\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x1a\n" +
+	"\bnickname\x18\x02 \x01(\tR\bnickname\")\n" +
 	"\x0eIsAdminRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\",\n" +
 	"\x0fIsAdminResponse\x12\x19\n" +
-	"\bis_admin\x18\x01 \x01(\bR\aisAdmin\"t\n" +
+	"\bis_admin\x18\x01 \x01(\bR\aisAdmin\"\x90\x01\n" +
 	"\x12CreateAdminRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12,\n" +
-	"\x12requesting_user_id\x18\x03 \x01(\x03R\x10requestingUserId\".\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\x12,\n" +
+	"\x12requesting_user_id\x18\x04 \x01(\x03R\x10requestingUserId\"J\n" +
 	"\x13CreateAdminResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"o\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
+	"\bnickname\x18\x02 \x01(\tR\bnickname\"o\n" +
 	"\x0eBanUserRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12,\n" +
 	"\x12requesting_user_id\x18\x02 \x01(\x03R\x10requestingUserId\x12\x16\n" +
 	"\x06reason\x18\x03 \x01(\tR\x06reason\"+\n" +
 	"\x0fBanUserResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xf5\x01\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xf1\x02\n" +
 	"\x04Auth\x129\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x120\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\x126\n" +
 	"\aIsAdmin\x12\x14.auth.IsAdminRequest\x1a\x15.auth.IsAdminResponse\x12H\n" +
-	"\rValidateToken\x12\x1a.auth.ValidateTokenRequest\x1a\x1b.auth.ValidateTokenResponseB\x14Z\x12tuzov.sso.v1;ssov1b\x06proto3"
+	"\rValidateToken\x12\x1a.auth.ValidateTokenRequest\x1a\x1b.auth.ValidateTokenResponse\x12B\n" +
+	"\vCreateAdmin\x12\x18.auth.CreateAdminRequest\x1a\x19.auth.CreateAdminResponse\x126\n" +
+	"\aBanUser\x12\x14.auth.BanUserRequest\x1a\x15.auth.BanUserResponseB\x14Z\x12tuzov.sso.v1;ssov1b\x06proto3"
 
 var (
 	file_sso_sso_proto_rawDescOnce sync.Once
@@ -695,19 +749,23 @@ var file_sso_sso_proto_goTypes = []any{
 	(*BanUserResponse)(nil),       // 11: auth.BanUserResponse
 }
 var file_sso_sso_proto_depIdxs = []int32{
-	1, // 0: auth.Auth.Register:input_type -> auth.RegisterRequest
-	4, // 1: auth.Auth.Login:input_type -> auth.LoginRequest
-	6, // 2: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
-	0, // 3: auth.Auth.ValidateToken:input_type -> auth.ValidateTokenRequest
-	2, // 4: auth.Auth.Register:output_type -> auth.RegisterResponse
-	5, // 5: auth.Auth.Login:output_type -> auth.LoginResponse
-	7, // 6: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
-	3, // 7: auth.Auth.ValidateToken:output_type -> auth.ValidateTokenResponse
-	4, // [4:8] is the sub-list for method output_type
-	0, // [0:4] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1,  // 0: auth.Auth.Register:input_type -> auth.RegisterRequest
+	4,  // 1: auth.Auth.Login:input_type -> auth.LoginRequest
+	6,  // 2: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
+	0,  // 3: auth.Auth.ValidateToken:input_type -> auth.ValidateTokenRequest
+	8,  // 4: auth.Auth.CreateAdmin:input_type -> auth.CreateAdminRequest
+	10, // 5: auth.Auth.BanUser:input_type -> auth.BanUserRequest
+	2,  // 6: auth.Auth.Register:output_type -> auth.RegisterResponse
+	5,  // 7: auth.Auth.Login:output_type -> auth.LoginResponse
+	7,  // 8: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
+	3,  // 9: auth.Auth.ValidateToken:output_type -> auth.ValidateTokenResponse
+	9,  // 10: auth.Auth.CreateAdmin:output_type -> auth.CreateAdminResponse
+	11, // 11: auth.Auth.BanUser:output_type -> auth.BanUserResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_sso_sso_proto_init() }

@@ -136,6 +136,7 @@ message Topic {
   int64 posts_count = 7;
   int64 views_count = 8;
   google.protobuf.Timestamp last_activity = 9;
+  string author_nickname = 10;
 }
 
 message CreateTopicRequest {
@@ -190,7 +191,9 @@ message Post {
   int64 views_count = 11;
   int64 comments_count = 12;
   int64 likes_count = 13;
+  string author_nickname = 14;
 }
+
 
 message CreatePostRequest {
   int64 topic_id = 1;
@@ -241,6 +244,7 @@ message Comment {
   string content = 4;
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
+  string author_nickname = 7;
 }
 
 message CreateCommentRequest {

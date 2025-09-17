@@ -42,6 +42,7 @@ const (
 	ForumService_CreateTag_FullMethodName         = "/forum.ForumService/CreateTag"
 	ForumService_GetTag_FullMethodName            = "/forum.ForumService/GetTag"
 	ForumService_ListTags_FullMethodName          = "/forum.ForumService/ListTags"
+	ForumService_DeleteTag_FullMethodName         = "/forum.ForumService/DeleteTag"
 	ForumService_AddTagToPost_FullMethodName      = "/forum.ForumService/AddTagToPost"
 	ForumService_RemoveTagFromPost_FullMethodName = "/forum.ForumService/RemoveTagFromPost"
 	ForumService_ListTagsByPost_FullMethodName    = "/forum.ForumService/ListTagsByPost"
@@ -81,6 +82,7 @@ type ForumServiceClient interface {
 	CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*TagResponse, error)
 	GetTag(ctx context.Context, in *GetTagRequest, opts ...grpc.CallOption) (*TagResponse, error)
 	ListTags(ctx context.Context, in *ListTagsRequest, opts ...grpc.CallOption) (*ListTagsResponse, error)
+	DeleteTag(ctx context.Context, in *DeleteTagRequest, opts ...grpc.CallOption) (*Empty, error)
 	// Tag-Post Relationships
 	AddTagToPost(ctx context.Context, in *AddTagToPostRequest, opts ...grpc.CallOption) (*Empty, error)
 	RemoveTagFromPost(ctx context.Context, in *RemoveTagFromPostRequest, opts ...grpc.CallOption) (*Empty, error)
@@ -328,6 +330,16 @@ func (c *forumServiceClient) ListTags(ctx context.Context, in *ListTagsRequest, 
 	return out, nil
 }
 
+func (c *forumServiceClient) DeleteTag(ctx context.Context, in *DeleteTagRequest, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, ForumService_DeleteTag_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *forumServiceClient) AddTagToPost(ctx context.Context, in *AddTagToPostRequest, opts ...grpc.CallOption) (*Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Empty)
@@ -410,6 +422,7 @@ type ForumServiceServer interface {
 	CreateTag(context.Context, *CreateTagRequest) (*TagResponse, error)
 	GetTag(context.Context, *GetTagRequest) (*TagResponse, error)
 	ListTags(context.Context, *ListTagsRequest) (*ListTagsResponse, error)
+	DeleteTag(context.Context, *DeleteTagRequest) (*Empty, error)
 	// Tag-Post Relationships
 	AddTagToPost(context.Context, *AddTagToPostRequest) (*Empty, error)
 	RemoveTagFromPost(context.Context, *RemoveTagFromPostRequest) (*Empty, error)
@@ -495,6 +508,9 @@ func (UnimplementedForumServiceServer) GetTag(context.Context, *GetTagRequest) (
 }
 func (UnimplementedForumServiceServer) ListTags(context.Context, *ListTagsRequest) (*ListTagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTags not implemented")
+}
+func (UnimplementedForumServiceServer) DeleteTag(context.Context, *DeleteTagRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTag not implemented")
 }
 func (UnimplementedForumServiceServer) AddTagToPost(context.Context, *AddTagToPostRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddTagToPost not implemented")
@@ -946,6 +962,24 @@ func _ForumService_ListTags_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ForumService_DeleteTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ForumServiceServer).DeleteTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ForumService_DeleteTag_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ForumServiceServer).DeleteTag(ctx, req.(*DeleteTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ForumService_AddTagToPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddTagToPostRequest)
 	if err := dec(in); err != nil {
@@ -1134,6 +1168,10 @@ var ForumService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTags",
 			Handler:    _ForumService_ListTags_Handler,
+		},
+		{
+			MethodName: "DeleteTag",
+			Handler:    _ForumService_DeleteTag_Handler,
 		},
 		{
 			MethodName: "AddTagToPost",
