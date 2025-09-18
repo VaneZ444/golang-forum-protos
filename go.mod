@@ -1,7 +1,7 @@
 module github.com/VaneZ444/golang-forum-protos
 
 go 1.24.0
-
+require github.com/VaneZ444/golang-forum-protos v1.3.2
 require (
 	google.golang.org/grpc v1.71.1
 	google.golang.org/protobuf v1.36.4
