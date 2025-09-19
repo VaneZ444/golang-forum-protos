@@ -45,6 +45,7 @@ message LoginRequest {
 message LoginResponse {
     string token = 1;
     string nickname = 2;   // Чтобы фронту сразу знать ник
+    string role = 3;       // Чтобы фронту сразу знать роль
 }
 
 message IsAdminRequest {

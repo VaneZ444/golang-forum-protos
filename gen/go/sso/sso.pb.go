@@ -309,6 +309,7 @@ type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"` // Чтобы фронту сразу знать ник
+	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`         // Чтобы фронту сразу знать роль
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -353,6 +354,13 @@ func (x *LoginResponse) GetToken() string {
 func (x *LoginResponse) GetNickname() string {
 	if x != nil {
 		return x.Nickname
+	}
+	return ""
+}
+
+func (x *LoginResponse) GetRole() string {
+	if x != nil {
+		return x.Role
 	}
 	return ""
 }
@@ -691,10 +699,11 @@ const file_sso_sso_proto_rawDesc = "" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x15\n" +
-	"\x06app_id\x18\x03 \x01(\x05R\x05appId\"A\n" +
+	"\x06app_id\x18\x03 \x01(\x05R\x05appId\"U\n" +
 	"\rLoginResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x1a\n" +
-	"\bnickname\x18\x02 \x01(\tR\bnickname\")\n" +
+	"\bnickname\x18\x02 \x01(\tR\bnickname\x12\x12\n" +
+	"\x04role\x18\x03 \x01(\tR\x04role\")\n" +
 	"\x0eIsAdminRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\",\n" +
 	"\x0fIsAdminResponse\x12\x19\n" +

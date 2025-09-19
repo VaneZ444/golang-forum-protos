@@ -1,0 +1,1102 @@
+{
+	"info": {
+		"_postman_id": "5cee208c-c0e5-4098-b320-870efb52c814",
+		"name": "Forum Gateway - Quick Test Pack",
+		"description": "Postman collection to test the gateway HTTP endpoints from the provided handler. Set {{baseUrl}} to your gateway address (default [http://localhost:8080](http://localhost:8080)). Set {{userID}} to a numeric user id for endpoints that require authentication. For auth, this collection uses header X-User-Id as a simple way to inject the user id into the request context.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42758889"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"General\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category (by id)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/categories/1?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"categories",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"name\": \"Announcements\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/categories/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/categories/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Topics",
+			"item": [
+				{
+					"name": "Create Topic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiYXBwX2lkIjoxLCJyb2xlIjoidXNlciIsIm5pY2tuYW1lIjoiVmFuZVoiLCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJleHAiOjE3NTgyOTQyMzAsImlhdCI6MTc1ODIwNzgzMH0.oQFdzbKOS_2zdvxwneDlyTDSKIqgivmXMenYFptqIFk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Welcome to the forum\",\n  \"category_id\": 1,\n  \"content\": \"This is the first topic.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/topics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Topic",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/topics/1?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"topics",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Topics (optional category filter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/topics?category_id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"topics"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Topic",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiYXBwX2lkIjoxLCJyb2xlIjoidXNlciIsIm5pY2tuYW1lIjoiVmFuZVoiLCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJleHAiOjE3NTgyOTQyMzAsImlhdCI6MTc1ODIwNzgzMH0.oQFdzbKOS_2zdvxwneDlyTDSKIqgivmXMenYFptqIFk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 14,\n  \"title\": \"Updated topic title\",\n  \"category_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/topics/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"topics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Topic",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiYXBwX2lkIjoxLCJyb2xlIjoidXNlciIsIm5pY2tuYW1lIjoiVmFuZVoiLCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJleHAiOjE3NTgyOTQyMzAsImlhdCI6MTc1ODIwNzgzMH0.oQFdzbKOS_2zdvxwneDlyTDSKIqgivmXMenYFptqIFk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/topics/1?id=13",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"topics",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "13"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNSwiYXBwX2lkIjoxLCJyb2xlIjoidXNlciIsIm5pY2tuYW1lIjoiYXV0aG9yc3Rlc3QiLCJpc3MiOiJhdXRoLXNlcnZpY2UiLCJleHAiOjE3NTgyOTM3NTMsImlhdCI6MTc1ODIwNzM1M30.NDCWvBQlMIGVHh65Dw1w3tBc4anumVmI0kVQv5J65Kk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"topic_id\": 1,\n  \"title\": \"My first post\",\n  \"content\": \"Hello everyone!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Posts (by topic)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"topic_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts?topic_id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "topic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts/1?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"title\": \"Edited post title\",\n  \"content\": \"Updated content\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"post_id\": 1,\n  \"content\": \"Nice post!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Comment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/comments/1?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"comments",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Comments (by post)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/comments/1?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"comments",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"content\": \"Edited comment\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/comments/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/comments/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "Create Tag",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"golang\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/tags",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tag (by id)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/tags/1?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"tags",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tags",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/tags?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Tag To Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"post_id\": 1,\n  \"tag_id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts/1/tags/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts",
+								"1",
+								"tags",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Tag From Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-User-Id",
+								"value": "{{userID}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"post_id\": 1,\n  \"tag_id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts/1/tags/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts",
+								"1",
+								"tags",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tags By Post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/posts/1/tags?post_id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"posts",
+								"1",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "post_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Posts By Tag",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/tags/2/posts?tag_id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"tags",
+								"2",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "tag_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search (q)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJhcHBfaWQiOjEsInJvbGUiOiJ1c2VyIiwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwiZXhwIjoxNzU4MjA5Nzg3LCJpYXQiOjE3NTgxMjMzODd9.mAHJK4VyK2sUrInbHA5pYMRSMXBhDGO0qWcUafZsAt0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/forum/search?q=аниме",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"forum",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "аниме"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "userID",
+			"value": "123"
+		},
+		{
+			"value": ""
+		}
+	]
+}
